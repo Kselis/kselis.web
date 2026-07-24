@@ -53,7 +53,6 @@
             min-height: 100vh;
         }
 
-        /* 2. Change header padding back to "20px 0" */
         header {
             display: flex;
             justify-content: space-between;
@@ -67,6 +66,7 @@
             background-color: var(--bg);
             z-index: 100;
         }
+        
         .logo-container {
             display: flex;
             align-items: center;
@@ -115,8 +115,7 @@
             max-width: 1200px;
             margin: 0 auto;
             width: 100%;
-            padding-left: 20px;
-            padding-right: 20px;
+            /* Removed double padding here */
         }
 
         /* Page Title */
@@ -217,7 +216,8 @@
         /* Subject Grid */
         .subject-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            /* Adjusted min width down from 320px to prevent mobile overflow */
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 24px;
         }
 
@@ -227,7 +227,7 @@
             text-align: center;
             padding: 40px;
             color: #777;
-            display: none; /* Hidden by default */
+            display: none; 
         }
         .empty-state .material-symbols-outlined {
             font-size: 48px;
@@ -270,7 +270,7 @@
             width: 50px;
             height: 50px;
             background: #f0f4ff;
-            color: #4b6bfb; /* Subtle blue for active items */
+            color: #4b6bfb; 
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -315,7 +315,7 @@
         footer {
             padding: 40px 0;
             border-top: 1px solid var(--border);
-            color: #666;
+            color: #666666;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -329,8 +329,37 @@
         }
 
         @media (max-width: 600px) {
-            header { padding: 15px 20px; margin-bottom: 30px; }
-            .page-header h1 { font-size: 2.3rem; }
+            /* Adjusted padding to prevent double-spacing squeezing */
+            header { 
+                padding: 15px 0; 
+                margin-bottom: 30px; 
+            }
+            .logo-container img { height: 35px; }
+            .logo-text { font-size: 1.5rem; }
+            
+            .page-header h1 { font-size: 2.2rem; }
+            .page-header p { font-size: 1rem; }
+            
+            .search-input {
+                padding: 12px 12px 12px 45px;
+                font-size: 0.9rem;
+            }
+            
+            .filter-btn {
+                padding: 6px 14px;
+                font-size: 0.8rem;
+            }
+            
+            /* Forces cards to full width on very small screens */
+            .subject-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            .subject-card {
+                padding: 24px 20px;
+            }
+            
             footer { text-align: center; }
         }
     </style>
@@ -355,8 +384,8 @@
 
     <main>
         <div class="page-header">
-            <h1>Notes Library</h1>
-            <p>Choose a subject below to access structured learning materials, curated revision notes, and syllabi.</p>
+            <h1>Course Library</h1>
+            <p>Choose a subject below to access structured learning materials, curated readable resource, and syllabi.</p>
         </div>
 
         <div class="controls-container">
@@ -390,15 +419,11 @@
     </footer>
 
     <script>
-        /**
-         * COURSE DATA: 
-         * To add a new course, simply add a new object to this array.
-         */
         const courses = [
             {
-                title: "Computational Thinking",
+                title: "Computational Thinking Fundamentals",
                 description: "A Quiz based book-styled course to grasp the basic understanding of 'solving question' in a computational way.",
-                link: "https://kselis.github.io/computational_thinking",
+                link: "computational_thinking/fundamentals/index.html",
                 icon: "memory",
                 status: "Live" 
             },
@@ -415,30 +440,18 @@
                 link: "#",
                 icon: "bar_chart",
                 status: "Coming" 
-            },
-            // Example of adding a new course:
-            // {
-            //     title: "Linear Algebra",
-            //     description: "Matrix transformations, eigenvectors, and the mathematical foundations of ML.",
-            //     link: "https://kselis.github.io/linear_algebra",
-            //     icon: "calculate",
-            //     status: "Live"
-            // }
+            }
         ];
 
-        // State variables
         let currentFilter = 'All';
         let searchQuery = '';
 
-        // DOM Elements
         const courseGrid = document.getElementById('courseGrid');
         const emptyState = document.getElementById('emptyState');
         const searchInput = document.getElementById('searchInput');
         const filterBtns = document.querySelectorAll('.filter-btn');
 
-        // Render Function
         function renderCourses() {
-            // 1. Filter the data array based on Search and Status
             const filteredCourses = courses.filter(course => {
                 const matchesFilter = currentFilter === 'All' || course.status === currentFilter;
                 const matchesSearch = course.title.toLowerCase().includes(searchQuery) || 
@@ -446,11 +459,9 @@
                 return matchesFilter && matchesSearch;
             });
 
-            // 2. Clear current grid (keeping the hidden empty state div intact)
             courseGrid.innerHTML = '';
             courseGrid.appendChild(emptyState); 
 
-            // 3. Handle Empty State
             if (filteredCourses.length === 0) {
                 emptyState.style.display = 'block';
                 return;
@@ -458,11 +469,9 @@
                 emptyState.style.display = 'none';
             }
 
-            // 4. Generate and append HTML for each course
             filteredCourses.forEach(course => {
                 const isLive = course.status === 'Live';
                 
-                // Set styling based on live/coming soon status
                 const tagElement = isLive ? 'a' : 'div';
                 const hrefAttr = isLive ? `href="${course.link}"` : '';
                 const cardClass = isLive ? 'subject-card' : 'subject-card disabled-card';
@@ -488,26 +497,21 @@
             });
         }
 
-        // Event Listeners for Search
         searchInput.addEventListener('input', (e) => {
             searchQuery = e.target.value.toLowerCase();
             renderCourses();
         });
 
-        // Event Listeners for Filter Buttons
         filterBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
-                // Update active class on buttons
                 filterBtns.forEach(b => b.classList.remove('active'));
                 e.target.classList.add('active');
 
-                // Update state and re-render
                 currentFilter = e.target.getAttribute('data-filter');
                 renderCourses();
             });
         });
 
-        // Initial Render on page load
         document.addEventListener('DOMContentLoaded', renderCourses);
     </script>
 </body>

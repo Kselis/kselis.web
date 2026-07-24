@@ -1,0 +1,444 @@
+/* ==========================================================================
+   Kselis Notes & KPL Sandbox - Universal Export Stylesheet
+   ========================================================================== */
+
+/* --- 1. CSS VARIABLES (THEME) --- */
+:root {
+    /* Backgrounds & Patterns */
+    --bg-backdrop: #fafafa;
+    --card-bg: #ffffff;
+    --bg-pattern-dot: rgba(0, 0, 0, 0.03);
+    
+    /* Typography */
+    --font-sans: 'Raleway', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-heading: 'Playfair Display', serif;
+    --font-mono: 'Consolas', 'Courier New', monospace;
+
+    /* Colors: Notes */
+    --text-primary: #111111;
+    --text-muted: #555555;
+    --border-color: #dddddd;
+    --accent-color: #000000;
+    
+    /* Colors: Code & Blocks */
+    --code-bg: rgba(0, 0, 0, 0.04);
+    --code-text: #d32f2f;
+    --analogy-bg: rgba(0, 0, 0, 0.02);
+    --example-bg: var(--card-bg);
+
+    /* Colors: Sandbox */
+    --sb-bg-main: #1e1e1e;
+    --sb-bg-panel: #252526;
+    --sb-bg-input: #3c3c3c;
+    --sb-text-main: #cccccc;
+    --sb-text-muted: #858585;
+    --sb-accent: #007acc;
+    --sb-error: #f48771;
+    --sb-success: #89d185;
+    --sb-border: #3c3c3c;
+}
+
+/* --- 2. GLOBAL RESET & BASE --- */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html { 
+    background-color: var(--bg-backdrop); 
+}
+
+body {
+    font-family: var(--font-sans);
+    color: var(--text-primary);
+    line-height: 1.7;
+    font-size: 1.05rem;
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 60px 80px;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02);
+    
+    /* Minimalist Grid Background */
+    background-image: 
+        linear-gradient(to right, var(--bg-pattern-dot) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--bg-pattern-dot) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+/* --- 3. TYPOGRAPHY --- */
+h1, h2 {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    color: var(--text-primary);
+}
+
+h1 { 
+    font-size: 3rem; 
+    margin: 0 0 24px 0; 
+    line-height: 1.2; 
+}
+
+h2 { 
+    font-size: 2rem; 
+    margin-top: 1.5em; 
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color); 
+}
+
+p { 
+    color: var(--text-muted); 
+    margin: 0 0 20px 0; 
+    text-align: justify; 
+}
+
+a { 
+    color: var(--accent-color); 
+    text-decoration: none; 
+    font-weight: 600; 
+    border-bottom: 1px solid var(--border-color); 
+    transition: border-color 0.2s ease;
+}
+
+a:hover { 
+    border-bottom-color: var(--accent-color); 
+}
+
+/* --- 4. CONTENT BLOCKS & FORMATTING --- */
+.section { 
+    margin-bottom: 40px; 
+}
+
+code:not(.CodeMirror *) { 
+    background: var(--code-bg); 
+    padding: 2px 6px; 
+    border-radius: 4px; 
+    font-size: 0.9em; 
+    color: var(--code-text); 
+    font-family: var(--font-mono); 
+}
+
+pre:not(.CodeMirror) { 
+    background: var(--bg-backdrop); 
+    border: 1px solid var(--border-color); 
+    padding: 20px; 
+    border-radius: 4px; 
+    overflow-x: auto; 
+    font-family: var(--font-mono); 
+    font-size: 0.9rem;
+}
+
+.analogy { 
+    background: var(--analogy-bg); 
+    border-left: 3px solid var(--accent-color); 
+    padding: 20px 25px; 
+    margin: 30px 0; 
+    font-style: italic;
+    color: var(--text-muted);
+}
+
+.example { 
+    background: var(--example-bg); 
+    border: 1px solid var(--border-color); 
+    padding: 20px 25px; 
+    margin: 30px 0; 
+    border-radius: 4px; 
+}
+
+/* --- 5. TABLES --- */
+table { 
+    width: 100%; 
+    border-collapse: collapse; 
+    border: 1px solid var(--border-color); 
+    border-radius: 4px; 
+    overflow: hidden; 
+    margin: 30px 0; 
+}
+
+th, td { 
+    padding: 14px 18px; 
+    border: 1px solid var(--border-color); 
+    text-align: left; 
+}
+
+th { 
+    background-color: var(--bg-backdrop); 
+    font-family: var(--font-heading); 
+    font-weight: 600; 
+    font-size: 1.1rem; 
+    color: var(--text-primary); 
+}
+
+/* --- 6. IMAGES --- */
+.image-section { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    margin: 40px 0; 
+    padding: 24px; 
+    background: var(--bg-backdrop); 
+    border: 1px solid var(--border-color); 
+    border-radius: 4px; 
+}
+
+.image-section img { 
+    max-width: 100%; 
+    max-height: 500px; 
+    border-radius: 4px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03); 
+}
+
+.caption { 
+    margin-top: 16px; 
+    font-size: 0.95rem; 
+    color: #777777; 
+    font-style: italic; 
+    text-align: center; 
+}
+
+/* --- 7. BUTTONS & NAVIGATION --- */
+.button-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin: 60px auto 0 auto;
+    width: 100%;
+}
+
+.action-btn { 
+    display: inline-block;
+    background-color: var(--card-bg); 
+    color: var(--accent-color) !important; 
+    padding: 12px 24px; 
+    border: 1px solid var(--border-color);
+    border-radius: 4px; 
+    font-weight: 600; 
+    text-align: center; 
+    text-decoration: none !important; 
+    cursor: pointer; 
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.action-btn:hover { 
+    background-color: var(--bg-backdrop); 
+    border-color: #aaaaaa;
+}
+
+/* --- 8. TIMER UI --- */
+.timer-circle {
+    position: fixed;
+    top: 24px;
+    right: 32px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    cursor: pointer;
+    font-family: var(--font-sans);
+    color: var(--text-primary);
+    padding: 0;
+    outline: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.timer-circle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+    border-color: #bbbbbb;
+}
+
+#minimal-timer {
+    font-size: 15px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+#timer-icon {
+    font-size: 10px;
+    color: #888888;
+    line-height: 1;
+}
+
+/* --- 9. KPL SANDBOX (EMBEDDED) --- */
+.pseudo-sandbox { 
+    display: none; 
+}
+
+.embedded-sandbox {
+    display: flex !important;
+    flex-direction: column;
+    gap: 1px;
+    height: 500px;
+    width: 100% !important;
+    margin: 30px 0;
+    background-color: var(--sb-border);
+    border: 1px solid var(--sb-border);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.sandbox-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 2fr 1fr;
+    gap: 1px;
+    background-color: var(--sb-border);
+    color: var(--sb-text-main);
+    font-family: var(--font-sans);
+    line-height: 1.5;
+}
+
+.embedded-sandbox .editor-panel { flex: 2; }
+.embedded-sandbox .terminal-panel { flex: 1; }
+
+.panel { 
+    display: flex; 
+    flex-direction: column; 
+    background-color: var(--sb-bg-panel); 
+    overflow: hidden; 
+}
+
+.panel-header { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 8px 16px; 
+    background-color: #2d2d2d; 
+    border-bottom: 1px solid var(--sb-border); 
+    font-size: 12px; 
+    font-weight: 600; 
+    text-transform: uppercase; 
+    color: var(--sb-text-muted); 
+}
+
+.toolbar { display: flex; gap: 8px; }
+
+.sandbox-container button { 
+    padding: 4px 12px; 
+    background-color: var(--sb-bg-input); 
+    color: var(--sb-text-main); 
+    border: 1px solid var(--sb-border); 
+    border-radius: 4px; 
+    font-size: 12px; 
+    cursor: pointer; 
+    transition: all 0.2s ease; 
+}
+
+.sandbox-container button:hover { 
+    background-color: var(--sb-accent); 
+    border-color: var(--sb-accent); 
+    color: #ffffff; 
+}
+
+.run-btn { 
+    background-color: var(--sb-accent) !important; 
+    color: #ffffff !important; 
+    border-color: var(--sb-accent) !important; 
+}
+
+.editor-container-sb { 
+    display: flex; 
+    flex-direction: column; 
+    flex-grow: 1; 
+    position: relative; 
+    overflow: hidden; 
+}
+
+.CodeMirror { 
+    flex-grow: 1; 
+    height: 100%; 
+    font-family: var(--font-mono) !important; 
+    font-size: 14px; 
+}
+
+.variables-panel { grid-column: 2; grid-row: 1; }
+.variables-content { padding: 16px; font-family: var(--font-mono); font-size: 13px; overflow-y: auto; flex-grow: 1; }
+
+.terminal-panel { grid-column: 1 / span 2; grid-row: 2; }
+.terminal-content { 
+    display: flex; 
+    flex-direction: column; 
+    flex-grow: 1; 
+    padding: 16px; 
+    font-family: var(--font-mono); 
+    font-size: 13px; 
+    overflow-y: auto; 
+}
+
+.term-line { margin-bottom: 4px; white-space: pre-wrap; }
+.term-error { color: var(--sb-error); }
+.term-success { color: var(--sb-success); }
+.term-system { color: var(--sb-text-muted); font-style: italic; }
+
+.term-input-line { display: flex; align-items: center; margin-top: 4px; }
+.term-prompt { color: var(--sb-accent); margin-right: 8px; }
+.term-input { 
+    flex-grow: 1; 
+    background: transparent; 
+    border: none; 
+    color: var(--sb-text-main); 
+    font-family: var(--font-mono); 
+    font-size: 13px; 
+    outline: none; 
+}
+
+.hidden { display: none !important; }
+
+/* --- 10. RESPONSIVE QUERIES --- */
+@media (max-width: 900px) {
+    body { 
+        margin: 0; 
+        padding: 30px 20px; 
+        border-radius: 0; 
+        border: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .sandbox-container { display: flex; flex-direction: column; }
+    .panel { flex: none; border-bottom: 1px solid var(--sb-border); }
+    .editor-panel { height: 40vh; }
+    .variables-panel { height: 25vh; }
+    .terminal-panel { height: 35vh; }
+    
+    .timer-circle {
+        top: auto; 
+        bottom: 24px;
+        right: 24px;
+        width: 60px;
+        height: 60px;
+    }
+    #minimal-timer { font-size: 13px; }
+    #timer-icon { font-size: 9px; }
+}
+
+/* --- 11. PRINT STYLES --- */
+@media print {
+    html, body { 
+        background: white !important; 
+        height: auto; 
+        margin: 0; 
+        padding: 0; 
+        max-width: 100%; 
+        border: none; 
+        box-shadow: none; 
+    }
+    .timer-circle, .button-group, #print { 
+        display: none !important; 
+    }
+    * { 
+        -webkit-print-color-adjust: exact !important; 
+        print-color-adjust: exact !important; 
+    }
+}

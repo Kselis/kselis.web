@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="Computational Thinking Notes | Kselis" />
+    <meta property="og:description" content="Structured curriculum and concise revision notes for Computational Thinking." />
+    <title>Computational Thinking | Kselis Syllabus</title>
+    
+    <link rel="icon" href="../../kselis_logo/kselis_logo_nobg_light.png" type="image/x-icon">
+    
+    <!-- Fonts and Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Infant:wght@600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Raleway:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+    <style>
+        /* Minimalist aesthetic with elegant typography */
+        :root {
+            --bg: #fafafa;
+            --card-bg: #ffffff;
+            --text: #111111;
+            --text-muted: #555555;
+            --border: #dddddd;
+            --accent: #000000;
+            --hover-bg: #f0f0f0;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Raleway', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-logo: 'Cormorant Infant', serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg);
+            color: var(--text);
+            max-width: 1200px; 
+            margin: 0 auto;
+            padding: 0 20px;
+            line-height: 1.7;
+            overflow-x: hidden;
+            /* Signature Kselis Grid Background */
+            background-image: 
+                linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- NAVIGATION --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background-color: var(--bg);
+            z-index: 100;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #555;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .playground-btn {
+            background-color: var(--accent);
+            color: #ffffff !important;
+            padding: 8px 16px;
+            border-radius: 4px;
+            border: 1px solid var(--accent);
+            transition: opacity 0.2s ease, background-color 0.2s;
+        }
+        
+        .playground-btn:hover {
+            opacity: 0.85;
+        }
+
+        .playground-btn .material-symbols-outlined {
+            font-size: 18px;
+        }
+
+        /* --- HERO HEADER --- */
+        .syllabus-hero {
+            padding: 60px 0 40px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .course-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .syllabus-hero h1 {
+            font-family: var(--font-heading);
+            font-size: 3.8rem;
+            font-weight: 400;
+            margin: 0 0 15px 0;
+            color: var(--text);
+            line-height: 1.2;
+        }
+
+        .syllabus-hero p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        /* --- SYLLABUS LIST --- */
+        .container {
+            max-width: 900px;
+            margin: 0 auto 80px;
+            flex-grow: 1;
+            width: 100%;
+        }
+
+        .module-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .module-row {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 24px 30px;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            text-decoration: none;
+            color: inherit;
+            transition: border-color 0.2s, transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .module-row:not(.locked):hover {
+            border-color: #999;
+            transform: translateY(-3px);
+        }
+        
+        .module-row.locked {
+            background: transparent;
+            cursor: not-allowed;
+        }
+
+        .module-row.locked .module-content h3,
+        .module-row.locked .module-content p {
+            color: #999;
+        }
+
+        /* Large, subtle background numbers */
+        .module-number {
+            font-size: 5rem;
+            font-weight: 800;
+            color: rgba(0, 0, 0, 0.03);
+            position: absolute;
+            left: -5px;
+            bottom: -25px;
+            z-index: 0;
+            pointer-events: none;
+            font-family: var(--font-body);
+            transition: color 0.3s;
+        }
+
+        .module-row:not(.locked):hover .module-number {
+            color: rgba(0, 0, 0, 0.06);
+        }
+
+        .module-icon {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            width: 50px;
+            height: 50px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text);
+            z-index: 1;
+            flex-shrink: 0;
+        }
+        
+        .module-row.locked .module-icon {
+            color: #999;
+            background: transparent;
+        }
+
+        .module-content {
+            flex-grow: 1;
+            z-index: 1;
+        }
+
+        .module-content h3 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0 0 6px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text);
+        }
+
+        .module-content p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .module-action {
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: transparent;
+            color: var(--text-muted);
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .module-row:not(.locked):hover .module-action {
+            color: var(--accent);
+            transform: translateX(4px);
+        }
+        
+        .status-badge {
+            font-family: var(--font-body);
+            font-size: 0.7rem;
+            background-color: transparent;
+            border: 1px solid var(--border);
+            color: #777;
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+            color: #666;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            margin-top: auto;
+        }
+
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s;
+            margin-left: 15px;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+
+        /* --- MOBILE --- */
+        @media (max-width: 768px) {
+            .syllabus-hero h1 { font-size: 3rem; }
+            .module-row { padding: 20px; flex-direction: column; align-items: flex-start; gap: 16px; }
+            .module-action { display: none; }
+            .module-icon { width: 40px; height: 40px; }
+            footer {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            .footer-links a { margin: 0 10px; }
+        }
+
+        @media (max-width: 600px) {
+            header { padding: 15px 0; }
+            
+            /* Properly hides ONLY the text, keeping the icon centered in a square */
+            .playground-btn .btn-text { display: none; }
+            .playground-btn {
+                padding: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-links">
+            <a href="../../index.html"><span class="material-symbols-outlined">arrow_back</span> Notes Library</a>
+        </div>
+        <div class="nav-links">
+            <a href="https://kselis.github.io/computational_thinking/playground" class="playground-btn" target="_blank">
+                <span class="material-symbols-outlined">code</span> <span class="btn-text">Code Playground</span>
+            </a>
+        </div>
+    </header>
+
+    <div class="syllabus-hero">
+        <span class="course-badge">Course Curriculum</span>
+        <h1>Computational Thinking</h1>
+        <p>A structured collection of concise revision notes designed for quick review and conceptual clarity. Free to view and share.</p>
+    </div>
+
+    <main class="container">
+        <!-- The list is now populated automatically by the JavaScript below -->
+        <div class="module-list" id="syllabusList"></div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Kselis Institute. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="../../contact.html">Contact Us</a>
+            <a href="mailto:kselis.institute@gmail.com">Mail Us</a>
+            <a href="https://linkedin.com/company/kselis-school" target="_blank">LinkedIn</a>
+        </div>
+    </footer>
+
+    <script>
+        /**
+         * MODULAR SYLLABUS DATA
+         * To lock a chapter, change `locked: false` to `locked: true`. 
+         * To add a new chapter, copy an existing block and paste it below.
+         */
+        const chapters = [
+            { num: "00", icon: "school", title: "Course Orientation", desc: "Introduce the course structure, learning goals, assessments, and expectations. Explain that computational thinking is a way of solving problems and is not the same as programming.", link: "content/chapter0.html", locked: false },
+            { num: "01", icon: "lightbulb", title: "What is Computational Thinking?", desc: "Define computational thinking as a structured approach to problem solving. Provide everyday examples such as planning a trip, organizing a room, or following a recipe.", link: "01_what_is_computational_thinking.html", locked: false },
+            { num: "02", icon: "public", title: "Why Computational Thinking Matters", desc: "Explore how computational thinking is used in science, business, education, and daily life. Focus on practical benefits rather than technical details.", link: "02_why_computational_thinking_matters.html", locked: false },
+            { num: "03", icon: "psychology", title: "Understanding Problems", desc: "Teach students how to identify a problem, define goals, and understand what needs to be solved before jumping to solutions.", link: "03_understanding_problems.html", locked: false },
+            { num: "04", icon: "login", title: "Inputs, Outputs, and Constraints", desc: "Explain that every problem has inputs, desired outputs, and limitations. Use examples such as planning a budget or organizing an event.", link: "04_inputs_outputs_constraints.html", locked: false },
+            { num: "05", icon: "emoji_people", title: "How Humans Solve Problems", desc: "Introduce trial and error, intuition, experience, and observation. Discuss the strengths and weaknesses of human problem solving.", link: "05_how_humans_solve_problems.html", locked: false },
+            { num: "06", icon: "computer", title: "How Computers Solve Problems", desc: "Explain that computers follow precise instructions and cannot make assumptions. Compare computer reasoning with human reasoning.", link: "06_how_computers_solve_problems.html", locked: false },
+            { num: "07", icon: "grid_view", title: "Decomposition", desc: "Explain how large problems can be broken into smaller parts. Use examples such as planning a vacation or organizing a school event.", link: "07_decomposition_basics.html", locked: false },
+            { num: "08", icon: "join_inner", title: "Pattern Recognition", desc: "Teach students to identify similarities and repeated structures between problems. Use examples from games, routines, and daily activities.", link: "08_pattern_recognition.html", locked: false },
+            { num: "09", icon: "filter_alt", title: "Abstraction", desc: "Explain how to focus on important details while ignoring unnecessary information. Use examples such as maps and simplified diagrams.", link: "09_abstraction.html", locked: false },
+            { num: "10", icon: "format_list_numbered", title: "Algorithmic Thinking", desc: "Introduce the idea of creating step-by-step instructions to solve problems. Use everyday examples without writing code.", link: "10_algorithmic_thinking.html", locked: false },
+            { num: "11", icon: "local_cafe", title: "Everyday Algorithms", desc: "Explore algorithms found in daily life such as making tea, tying shoelaces, or preparing for school.", link: "11_everyday_algorithms.html", locked: false },
+            { num: "12", icon: "alt_route", title: "Introduction to Logic", desc: "Introduce true and false statements, reasoning, and logical thinking through simple puzzles and examples.", link: "12_introduction_to_logic.html", locked: false },
+            { num: "13", icon: "call_split", title: "Decision Making", desc: "Explain conditional thinking using IF-THEN scenarios. Use examples such as deciding whether to carry an umbrella.", link: "13_decision_making.html", locked: false },
+            { num: "14", icon: "loop", title: "Repetition and Loops", desc: "Introduce repeated actions and routines. Explain why repeating instructions manually is inefficient.", link: "14_repetition_and_loops.html", locked: false },
+            { num: "15", icon: "data_object", title: "Representing Information", desc: "Explore different ways information can be represented including text, numbers, symbols, tables, and diagrams.", link: "15_representing_information.html", locked: false },
+            { num: "16", icon: "account_tree", title: "Flowcharts", desc: "Teach students how to visualize processes using simple flowchart symbols and decision points.", link: "16_flowcharts.html", locked: false },
+            { num: "17", icon: "code", title: "Pseudocode", desc: "Introduce pseudocode as a way of writing algorithms in plain language without using programming syntax.", link: "17_pseudocode.html", locked: false },
+            { num: "18", icon: "table_chart", title: "Introduction to Data", desc: "Explain what data is and why information is collected. Use examples such as attendance records and survey responses.", link: "18_introduction_to_data.html", locked: false },
+            { num: "19", icon: "inventory_2", title: "Collecting and Organizing Data", desc: "Teach basic methods for gathering, sorting, and organizing information for easier analysis.", link: "19_collecting_and_organizing_data.html", locked: false },
+            { num: "20", icon: "insights", title: "Patterns in Data", desc: "Show how useful insights can be discovered by identifying trends, categories, and repeated behaviors.", link: "20_patterns_in_data.html", locked: false },
+            { num: "21", icon: "science", title: "Models and Simulations", desc: "Introduce simplified representations of real-world systems such as maps, weather forecasts, and flight simulators.", link: "21_models_and_simulations.html", locked: false },
+            { num: "22", icon: "hub", title: "Multiple Ways to Solve a Problem", desc: "Demonstrate that a single problem can have many solutions and discuss how different approaches may vary.", link: "22_multiple_solutions.html", locked: false },
+            { num: "23", icon: "speed", title: "Efficiency", desc: "Explain why some solutions are better than others based on time, effort, and resources required.", link: "23_efficiency.html", locked: false },
+            { num: "24", icon: "trending_up", title: "Optimization", desc: "Introduce the idea of improving an existing solution to make it faster, simpler, or more effective.", link: "24_optimization.html", locked: false },
+            { num: "25", icon: "bug_report", title: "Errors and Debugging", desc: "Explain how mistakes occur in processes and introduce systematic ways to identify and fix them.", link: "25_errors_and_debugging.html", locked: false },
+            { num: "26", icon: "fact_check", title: "Testing Solutions", desc: "Teach students to verify whether a solution works correctly under different situations.", link: "26_testing_solutions.html", locked: false },
+            { num: "27", icon: "update", title: "Iterative Improvement", desc: "Introduce the idea of refining solutions through repeated testing and gradual enhancement.", link: "27_iterative_improvement.html", locked: false },
+            { num: "28", icon: "device_hub", title: "Systems Thinking", desc: "Explain how multiple components interact to form larger systems such as schools, transportation networks, or ecosystems.", link: "28_systems_thinking.html", locked: false },
+            { num: "29", icon: "sync", title: "Feedback Loops", desc: "Introduce situations where outputs influence future inputs. Use examples such as thermostats and social media recommendations.", link: "29_feedback_loops.html", locked: false },
+            
+            // These chapters are currently locked
+            { num: "30", icon: "lock", title: "Computational Thinking in Real Life", desc: "Explore practical applications of computational thinking in science, business, healthcare, education, and everyday decision making.", link: "#", locked: true },
+            { num: "31", icon: "lock", title: "Capstone: Selecting a Problem", desc: "Choose a simple real-world problem and identify its goals, inputs, outputs, and constraints.", link: "#", locked: true },
+            { num: "32", icon: "lock", title: "Capstone: Designing a Solution", desc: "Apply decomposition, pattern recognition, abstraction, and algorithmic thinking to develop a solution.", link: "#", locked: true },
+            { num: "33", icon: "lock", title: "Capstone: Evaluation and Reflection", desc: "Evaluate the proposed solution, identify improvements, and reflect on the computational thinking process.", link: "#", locked: true }
+        ];
+
+        // Rendering Engine
+        document.addEventListener('DOMContentLoaded', () => {
+            const syllabusList = document.getElementById('syllabusList');
+
+            chapters.forEach(mod => {
+                const isLocked = mod.locked;
+                
+                // Determine layout rules based on locked status
+                const tag = isLocked ? 'div' : 'a';
+                
+                // If it's a link, check if it's external (http) or internal to set target attribute
+                let hrefAttr = '';
+                if (!isLocked) {
+                    const target = mod.link.startsWith('http') ? '_blank' : '_self';
+                    hrefAttr = `href="${mod.link}" target="${target}"`;
+                }
+
+                const lockedClass = isLocked ? 'locked' : '';
+                const badge = isLocked ? `<span class="status-badge">Adding Soon</span>` : '';
+                const displayIcon = isLocked ? 'lock' : mod.icon;
+                const actionIcon = isLocked ? 'lock' : 'arrow_forward';
+                
+                const html = `
+                    <${tag} ${hrefAttr} class="module-row ${lockedClass}">
+                        <div class="module-number">${mod.num}</div>
+                        <div class="module-icon">
+                            <span class="material-symbols-outlined">${displayIcon}</span>
+                        </div>
+                        <div class="module-content">
+                            <h3>${mod.title} ${badge}</h3>
+                            <p>${mod.desc}</p>
+                        </div>
+                        <div class="module-action">
+                            <span class="material-symbols-outlined">${actionIcon}</span>
+                        </div>
+                    </${tag}>
+                `;
+                
+                syllabusList.insertAdjacentHTML('beforeend', html);
+            });
+        });
+    </script>
+</body>
+</html>

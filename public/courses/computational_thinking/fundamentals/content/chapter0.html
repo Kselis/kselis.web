@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- 1. ADDED: Complete Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+  <link rel="stylesheet" href="style.css">
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/darcula.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/javascript/javascript.min.js"></script>
+  <script src="https://kselis.github.io/computational_thinking/playground/sandbox.js" defer></script>
+  
+  <title>Chapter 0 | Course Orientation</title>
+
+  <style>
+    /* ADDED: Clean internal navigation for the paper note */
+    .note-nav {
+        margin-bottom: 40px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid var(--border-color);
+    }
+    .note-nav a {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-family: var(--font-sans);
+        font-size: 0.95rem;
+        color: var(--text-muted);
+        font-weight: 600;
+        text-decoration: none;
+        border: none;
+    }
+    .note-nav a:hover {
+        color: var(--text-heading);
+    }
+    @media print { .note-nav { display: none !important; } }
+  </style>
+</head>
+<body>
+
+    <!-- 2. ADDED: Back button -->
+    <div class="note-nav">
+        <a href="../../fundamentals/index.html"><span class="material-symbols-outlined" style="font-size: 18px;">arrow_back</span> Back to Syllabus</a>
+    </div>
+
+    <h1>Course Orientation: Intro &amp; Prerequisites</h1>
+    
+    <!-- 3. CLEANED UP HTML: Proper <p> tags, removed inline spans and messy divs -->
+    <p>Hello to everyone reading this!</p>
+    <p>So... Prakhar here (the one writing this). Welcome to this <i>Book-Styled Course</i>, where you'll be <b>READING</b> the content instead of watching it. I know... that probably sounds <i>toooooo</i> old-school in an era dominated by short-form content, but yeah... I guess it is what it is.</p>
+    <p>There are plenty of reasons why reading is worthwhile (you'll find countless articles on the internet about that), but to sum it all up, reading is (technical term alert!!) <b>an active cognitive process.</b> We'll get into what that actually means a little later. Let's look into a brief on how to read this course.</p>
+    
+    <div class="section">
+        <h2>How to Read Effectively (for this course)</h2>
+        <p>Reading feels boring! Even when your document has less visual elements. So how one should read? Some people read the highlights of a document (<i>Skimming</i>), some read thoroughly, take breaks, and think. Which one should you do for this course considering you are beginner?</p>
+        <p>If you're a beginner, I'd recommend the second approach. I have tried to not use any difficult words (Jargon) so just read word by word.</p>
+        <p>Read one section at a time, and after every example, pause for a moment and ask yourself, "How would I solve this?" before reading the explanation. Don't hesitate to reread a section if something isn't clear—that's completely normal (even I would do that.)</p>
+        <p>Most importantly, don't rush. This course isn't about finishing quickly; it's about developing a new way of thinking. Read only 1 chapter a day. If a page makes you stop and think, then it's already doing its job.</p>
+        <p>Every Chapter is followed by a quiz/questionnaire, attend it and don't hesitate to come back. There might be a lot of questions in your mind about reading, for that I will recommend you this short blog by myself @ <a href="https://prakharguptaod.github.io">https://prakharguptaod.github.io</a></p>
+        <p>For now, let's start with a simpler question: <b>What is this course about and how will it proceed?</b> It's an interesting question to ask to be honest!</p>
+    </div>
+    
+    <div class="analogy">
+        <strong>Before You Proceed:</strong> If you are <i>not a book reader,</i> you might face difficulty while going through this course. to help you out. Here's a video for you to understand "how to approach this course" <a href="https://youtube.com">https://youtube.com</a> , <i>refer to this before proceeding further!</i> It takes a lot of discipline to read (in fact I struggle with reading sometimes.. you know it's kinda boring but let's change ourselves for the good).
+    </div>
+    
+    <div class="section">
+        <h2>Icebreaker for this course</h2>
+        <p>Well, if you're here, you might know that this course is about <i>Computational Thinking.</i> But what exactly is computational thinking? Is it programming? or something else? and why do we even need this? To answer that, let's take a very easy example of school assembly.</p>
+        <p>Imagine it's Monday morning, and your school has around <b>2,000</b> students standing in the assembly. Just before the national anthem begins, your teacher says, <i>"Quick! Go and call Arjun from the assembly."</i></p>
+        <p>How would you find him? Would you start from the very first row and check every single student until you found Arjun? Probably not. Instead, your brain would immediately <b>start making a plan.</b></p>
+    </div>
+    
+    <div class="section">
+        <p>You might think, "Arjun is in Class 10." So you head straight to the Class 10 section. Then you remember, "He's in Section B." That narrows your search even further. Finally, you recall that Section B usually stands in a particular area, <b>so you begin looking there</b>.. And you know that Arjun is tall (6'2) so he might be standing in the back. (I am jealous of Arjun tbh.. cuz I am short.)</p>
+    </div>
+    
+    <div class="section">
+        <p>Notice what just happened. Without realizing it, you broke one large problem into several smaller ones. You used what you already knew about how the assembly is organized. You ignored thousands of students who couldn't possibly be Arjun, and you followed <b>a sensible sequence of steps</b> instead of searching randomly.</p>
+    </div>
+    
+    <div class="section">
+        <p>In just a few seconds, your brain performed four important tasks:</p>
+        <ul>
+            <li>It broke the problem into smaller parts (<i>Decomposition</i>).</li>
+            <li>It used familiar arrangements and repeated structures (<i>Pattern Recognition</i>).</li>
+            <li>It focused only on the information that mattered (<i>Abstraction</i>).</li>
+            <li>It followed a step-by-step plan (<i>Algorithmic Thinking</i>).</li>
+        </ul>
+        <p>An AI generated flowchart will help you understand this (attached below).</p>
+    </div>
+    
+    <div class="section">
+        <div class="image-section">
+            <!-- Replace this src with the path to your image file, e.g., src="flowchart.png" to keep HTML clean -->
+            <img src="../../media/fundamentals_figure_1.png" alt="Flowchart">
+        </div>
+    </div>
+    <p>Together, these four ideas form the foundation of <b>Computational Thinking </b>and we will be
+                        learning this. Notice that at no point did you write a program or use a computer. That's because
+                        <b>computational thinking is not programming</b>.</p>
+                    <div class="section">
+                        <h2>How is it different from Programming?</h2>
+                        <p>Programming is the process of telling a computer what to do. Computational thinking is the
+                            process of understanding a problem and designing a logical, efficient way to solve it.
+                            Whether you're solving the problem yourself, explaining it to a friend, or asking a computer
+                            to solve it, the thinking process remains the same.</p>
+                        <p>And that's exactly what this course is about. The table below gives you decent idea of what
+                            is the actual difference.</p>
+                        <table cellpadding="8" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Computational Thinking</th>
+                                    <th>Programming</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Computational thinking is a problem-solving framework involving decomposition
+                                        (breaking problems into smaller parts), pattern recognition, abstraction, and
+                                        algorithmic design.</td>
+                                    <td>&nbsp;Programming is the practical act of translating these step-by-step
+                                        solutions into machine-executable code using a language like Python or C++</td>
+                                </tr>
+                                <tr>
+                                    <td>Can be done entirely "unplugged" without a computer (e.g., planning an event or
+                                        mapping out a traffic route).</td>
+                                    <td>&nbsp;Strictly requires a computer and a development environment (e.g., writing
+                                        a Python script to automate data analysis).</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="section"><span style="font-size: 1.05rem;">Well, to write our ideas and steps to solve a
+                            problem, we will be using something similar to any other programming language out there but
+                            way more different, it's called pseudocode. We will discuss about this later. Before
+                            concluding this chapter, let's go through the Pre-requisites required for this
+                            course.</span></div>
+                    <div class="section">
+                        <div class="section">
+                            <h2>Pre-Requisites&nbsp;</h2>
+                            <p>Well, to begin with, you don't need any sort of technical knowledge like programming or
+                                something, neither advanced Maths is required (although I assume you are at least 15 -
+                                16 years old)<br></p>
+                            <ul>
+                                <li>Basic reading and comprehension skills — Since this is a book-styled course, you'll
+                                    be learning by reading rather than watching videos. (Don't worry, chapters won't be
+                                    very big)</li>
+                                <li>Logical thinking — You don't need to be an expert; just be open to reasoning through
+                                    simple situations.</li>
+                                <li>Patience — Some ideas may seem abstract at first, but they'll become clearer as you
+                                    progress.</li>
+                                <li>Curiosity to solve problems — Be willing to ask "Why?" and "Is there a better way?"
+                                </li>
+                            </ul>
+                            <div>Now here's a list of what you don't require.</div>
+                            <div>
+                                <ul>
+                                    <li>No programming knowledge required — You do not need to know Python, Java, C++,
+                                        or any other programming language.</li>
+                                    <li>No advanced mathematics required — The examples use everyday situations, not
+                                        complex formulas</li>
+                                    <li>No Heavy Computer Required — You don't need a beast computer with heavy specs to
+                                        pursue this course, It can even be done on mobile phone with stable internet
+                                        access.</li>
+                                </ul>
+                                <div>
+                                    <div class="section">
+                                        <h2>Concluding for today</h2>
+                                        <p><span style="font-size: 1.05rem;">That's all for the course
+                                                orientation!</span></p>
+                                        <p><span style="font-size: 1.05rem;">By now, you know what this course is about,
+                                                how to approach it, and what you'll need to get started. Remember, this
+                                                course isn't about memorizing concepts—it's about learning a new way of
+                                                thinking.</span></p>
+                                        <p><span style="font-size: 1.05rem;">Take your time, stay curious, and don't
+                                                worry if you don't understand everything on the first read. Learning is
+                                                a gradual process.</span></p>
+                                        <p><span style="font-size: 1.05rem;">Now that we're all set, answer few
+                                                questions and close your eyes after that and reflect on what you learned
+                                                today!&nbsp;</span></p>
+                                        <p>All the best!!!</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <p></p>
+                        </div>
+                    </div>
+                    <p></p>
+                </span></div>
+        </span></div>
+
+
+    <div class="button-group">
+        <a class="button action-btn" href="#">← Previous</a>
+        <a class="button action-btn" onclick="window.print()">Save as PDF</a>
+        <a class="button action-btn" href="#">Next →</a>
+    </div>
+
+    <!-- Interactive Timer UI (Self-contained) -->
+    <button class="timer-circle" id="timer-toggle" aria-label="Toggle Timer">
+      <div id="minimal-timer">00:00</div>
+      <div id="timer-icon">⏸</div>
+    </button>
+
+    <script>
+    let totalSeconds = 0;
+    let timerInterval = null;
+    let isRunning = true;
+
+    const timerDisplay = document.getElementById('minimal-timer');
+    const timerIcon = document.getElementById('timer-icon');
+    const toggleBtn = document.getElementById('timer-toggle');
+
+    function updateDisplay() {
+        const minutes = String(Math.floor(totalSeconds / 60)).padStart(2, '0');
+        const seconds = String(totalSeconds % 60).padStart(2, '0');
+        timerDisplay.textContent = `${minutes}:${seconds}`;
+    }
+
+    function startTimer() {
+        timerInterval = setInterval(() => {
+            totalSeconds++;
+            updateDisplay();
+        }, 1000);
+        timerIcon.textContent = '⏸';
+        isRunning = true;
+    }
+
+    function pauseTimer() {
+        clearInterval(timerInterval);
+        timerIcon.textContent = '▶';
+        isRunning = false;
+    }
+
+    toggleBtn.addEventListener('click', () => {
+        if (isRunning) pauseTimer();
+        else startTimer();
+    });
+
+    startTimer();
+    </script>
+</body>
+</html>
