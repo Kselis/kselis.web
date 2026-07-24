@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Kselis</title>
+    
+    <link rel="icon" href="media/pictures/logo/kselis_logo_nobg_light.png" type="image/x-icon">
+    
+    <!-- Fonts and Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Infant:wght@600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* Minimalist aesthetic with elegant typography */
+        :root {
+            --bg: #fafafa;
+            --text: #111;
+            --accent: #000;
+            --border: #ddd;
+            --hover-bg: #f0f0f0;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg);
+            color: var(--text);
+            max-width: 1200px; 
+            margin: 0 auto;
+            padding: 0 20px;
+            line-height: 1.7;
+            overflow-x: hidden;
+            background-image: 
+                linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 40px;
+            position: sticky;
+            top: 0;
+            background-color: var(--bg);
+            z-index: 100;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-container img {
+            height: 45px;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-family: 'Cormorant Infant', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #555;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        /* Main Content area */
+        main {
+            flex-grow: 1;
+            padding-bottom: 60px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Centered Content Wrapper for the Form */
+        .contact-wrapper {
+            width: 100%;
+            max-width: 650px;
+        }
+
+        /* Page Title */
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+            transition: opacity 0.5s ease;
+        }
+
+        .page-header h1 {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            font-weight: 400;
+            line-height: 1.2;
+            color: var(--text);
+            margin-bottom: 15px;
+        }
+
+        .page-header p {
+            color: #555;
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* Form Styles */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            transition: opacity 0.5s ease;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .input-group label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 16px;
+            background-color: #fff;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: var(--text);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            outline: none;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 160px;
+        }
+
+        input:focus, textarea:focus {
+            border-color: var(--accent);
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: #bbb;
+        }
+
+        button[type="submit"], .btn-primary {
+            background-color: var(--accent);
+            color: #fff;
+            border: 1px solid var(--accent);
+            padding: 16px;
+            border-radius: 4px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s, background-color 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+            text-decoration: none;
+        }
+
+        button[type="submit"]:hover, .btn-primary:hover {
+            opacity: 0.85;
+        }
+
+        /* Success Message Styles */
+        #successMessage {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+            animation: fadeIn 0.8s ease forwards;
+        }
+        
+        #successMessage .icon-circle {
+            width: 70px;
+            height: 70px;
+            background-color: #f0fdf4;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: #166534;
+        }
+
+        #successMessage h2 {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        #successMessage p {
+            color: #555;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Scroll Animations */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+            color: #666;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            margin-top: auto;
+        }
+
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .page-header h1 { font-size: 2.8rem; }
+        }
+
+        @media (max-width: 600px) {
+            header { padding: 15px 0; }
+            footer {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo-container">
+            <img src="media/pictures/logo/kselis_logo_nobg_light.png" alt="Kselis Logo" onerror="this.style.display='none'">
+            <span class="logo-text">KSELIS</span>
+        </a>
+        <nav>
+            <ul>
+                <li>
+                    <a href="index.html">
+                        <span class="material-symbols-outlined" style="font-size: 18px;">arrow_back</span> Home
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="contact-wrapper">
+            
+            <div class="page-header fade-in-up" id="contactHeader">
+                <h1>Get in Touch</h1>
+                <p>Have a question or want to work together? Fill out the form below and we'll get back to you shortly.</p>
+            </div>
+
+            <!-- Hidden iframe for silent form submission -->
+            <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
+            <!-- Form -->
+            <form class="fade-in-up" id="kselisForm" action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSdawQ9R7LDjfJTKBWSz93LIz4iEB6e9as5Mhx6fFMiwr7I_mg/formResponse" method="POST" target="hidden_iframe">
+                
+                <div class="input-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="entry.1325372576" placeholder="Rasputin" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="entry.490756582" placeholder="Rasputin@rocks.com" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="message">Your Message</label>
+                    <textarea id="message" name="entry.488481316" placeholder="How can we help you today?" required></textarea>
+                </div>
+                
+                <button type="submit">
+                    Send Message <span class="material-symbols-outlined" style="font-size: 20px;">arrow_forward</span>
+                </button>
+            </form>
+
+            <!-- Success Message (Hidden by default) -->
+            <div id="successMessage">
+                <div class="icon-circle">
+                    <span class="material-symbols-outlined" style="font-size: 32px;">check</span>
+                </div>
+                <h2>Message Sent!</h2>
+                <p>Thank you for reaching out. We have received your message and will get back to you shortly.</p>
+                <button onclick="window.location.reload()" class="btn-primary" style="margin: 0 auto;">Send Another Message</button>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="fade-in-up">
+        <p>&copy; 2024 Kselis Institute. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="mailto:kselis.institute@gmail.com"><i class="fas fa-envelope"></i> Mail Us directly</a>
+        </div>
+    </footer>
+
+    <script>
+        var submitted = false;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('kselisForm');
+            const iframe = document.getElementById('hidden_iframe');
+            const header = document.getElementById('contactHeader');
+            const successMessage = document.getElementById('successMessage');
+
+            // 1. When the form is submitted
+            form.addEventListener('submit', function() {
+                submitted = true;
+                const submitBtn = form.querySelector('button[type="submit"]');
+                submitBtn.innerHTML = 'Sending... <span class="material-symbols-outlined" style="font-size: 20px;">hourglass_empty</span>';
+                submitBtn.style.opacity = '0.7';
+                submitBtn.style.pointerEvents = 'none';
+            });
+
+            // 2. When the hidden iframe finishes loading (submission complete)
+            iframe.addEventListener('load', function() {
+                if (submitted) {
+                    // Hide the form and header
+                    form.style.display = 'none';
+                    header.style.display = 'none';
+                    
+                    // Show the success message
+                    successMessage.style.display = 'block';
+                    
+                    // Scroll slightly up so the user sees the message clearly
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+
+            /* --- Scroll Fade-In Animation --- */
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15 
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const fadeElements = document.querySelectorAll('.fade-in-up');
+            setTimeout(() => {
+                fadeElements.forEach(el => observer.observe(el));
+            }, 100);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+type Department @table {
+  name: String!
+  costCenterCode: String
+}
+
+type Employee @table {
+  name: String!
+  email: String!
+  role: String!
+  department: Department!
+  manager: Employee
+  hireDate: Date
+  bio: String
+}
+
+type Course @table {
+  title: String!
+  description: String!
+  difficultyLevel: String!
+  durationMinutes: Int
+  category: String
+}
+
+type Enrollment @table {
+  employee: Employee!
+  course: Course!
+  status: String!
+  completionDate: Timestamp
+  progressPercentage: Int
+}
+
+type Skill @table {
+  name: String!
+  category: String!
+  description: String
+}
+
+type EmployeeSkill @table(key: ["employee", "skill"]) {
+  employee: Employee!
+  skill: Skill!
+}
+
+type CourseSkill @table(key: ["course", "skill"]) {
+  course: Course!
+  skill: Skill!
+}
