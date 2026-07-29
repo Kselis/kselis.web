@@ -24,6 +24,7 @@
             --hover-bg: #f0f0f0;
             --font-heading: 'Playfair Display', serif;
             --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --card-bg: #ffffff;
         }
 
         * {
@@ -37,9 +38,8 @@
             font-family: var(--font-body);
             background-color: var(--bg);
             color: var(--text);
-            max-width: 1200px; 
-            margin: 0 auto;
-            padding: 0 20px;
+            margin: 0;
+            padding: 0;
             line-height: 1.7;
             overflow-x: hidden;
             background-image: 
@@ -50,20 +50,42 @@
             flex-direction: column;
             min-height: 100vh;
         }
+        /* --- DARK THEME OVERRIDES --- */
+        body.dark-theme {
+            --bg: #121212;
+            --text: #f0f0f0;
+            --card-bg: #1e1e1e; /* Perfect for Profile/Contact cards */
+            --border: #333;
+            --hover-bg: #2a2a2a;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+
+        /* Smooth transition for the color swap */
+        body {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .card, .contact-form-side, .info-card {
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
 
         /* Navigation */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
             padding: 20px 0;
             border-bottom: 1px solid var(--border);
             margin-bottom: 40px;
-            position: sticky;
-            top: 0;
             background-color: var(--bg);
-            z-index: 100;
         }
 
         .logo-container {
@@ -86,12 +108,6 @@
             letter-spacing: 1px;
         }
 
-        nav ul {
-            display: flex;
-            list-style: none;
-            align-items: center;
-        }
-
         nav a {
             text-decoration: none;
             color: #555;
@@ -100,55 +116,101 @@
             display: flex;
             align-items: center;
             gap: 6px;
+            font-weight: 600;
         }
 
         nav a:hover {
             color: var(--accent);
         }
 
-        /* Main Content area */
-        main {
-            flex-grow: 1;
-            padding-bottom: 60px;
-            display: flex;
-            justify-content: center;
+        /* Two-Column Contact Layout */
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 60px;
+            margin-bottom: 60px;
+            align-items: flex-start;
         }
 
-        /* Centered Content Wrapper for the Form */
-        .contact-wrapper {
-            width: 100%;
-            max-width: 650px;
-        }
-
-        /* Page Title */
-        .page-header {
-            text-align: center;
-            margin-bottom: 50px;
-            transition: opacity 0.5s ease;
-        }
-
-        .page-header h1 {
+        /* Left Side: Info */
+        .contact-info-side h1 {
             font-family: var(--font-heading);
             font-size: 3.5rem;
             font-weight: 400;
             line-height: 1.2;
-            color: var(--text);
             margin-bottom: 15px;
         }
 
-        .page-header p {
+        .contact-info-side > p {
             color: #555;
             font-size: 1.1rem;
-            max-width: 500px;
-            margin: 0 auto;
+            margin-bottom: 40px;
         }
 
-        /* Form Styles */
+        .info-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+
+        .info-card .icon-wrapper {
+            background: var(--bg);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+
+        .info-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            margin: 0 0 5px 0;
+        }
+
+        .info-card p {
+            margin: 0;
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .info-card a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .info-card a:hover {
+            text-decoration: underline;
+        }
+
+        /* Right Side: Form Container */
+        .contact-form-side {
+            background: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+            display: flex;             
+            flex-direction: column;
+        }
+
         form {
             display: flex;
             flex-direction: column;
-            gap: 25px;
-            transition: opacity 0.5s ease;
+            gap: 20px;
+            flex-grow: 1;
+        }
+        .input-group:nth-child(3) {
+            flex-grow: 1;
         }
 
         .input-group {
@@ -169,28 +231,26 @@
         input[type="email"],
         textarea {
             width: 100%;
-            padding: 16px;
-            background-color: #fff;
+            padding: 14px;
+            background-color: var(--bg);
             border: 1px solid var(--border);
             border-radius: 4px;
             font-family: var(--font-body);
             font-size: 1rem;
             color: var(--text);
-            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            transition: border-color 0.2s ease, background-color 0.2s;
             outline: none;
         }
 
         textarea {
             resize: vertical;
-            min-height: 160px;
+            min-height: 177px;
+            flex-grow: 1;
         }
 
         input:focus, textarea:focus {
             border-color: var(--accent);
-        }
-
-        input::placeholder, textarea::placeholder {
-            color: #bbb;
+            background-color: #fff;
         }
 
         button[type="submit"], .btn-primary {
@@ -203,24 +263,24 @@
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: opacity 0.2s, background-color 0.2s;
+            transition: opacity 0.2s;
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 10px;
             margin-top: 10px;
-            text-decoration: none;
+            width: 100%;
         }
 
         button[type="submit"]:hover, .btn-primary:hover {
             opacity: 0.85;
         }
 
-        /* Success Message Styles */
+        /* Success Message */
         #successMessage {
             display: none;
             text-align: center;
-            padding: 40px 20px;
+            padding: 20px 0;
             animation: fadeIn 0.8s ease forwards;
         }
         
@@ -238,14 +298,13 @@
 
         #successMessage h2 {
             font-family: var(--font-heading);
-            font-size: 2.5rem;
+            font-size: 2rem;
             margin-bottom: 10px;
         }
 
         #successMessage p {
             color: #555;
-            font-size: 1.1rem;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
         
         @keyframes fadeIn {
@@ -259,120 +318,242 @@
             transform: translateY(30px);
             transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
-
         .fade-in-up.visible {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* Footer */
-        footer {
-            padding: 40px 0;
+        /* BIG FOOTER */
+        .big-footer {
+            background-color: #fff;
             border-top: 1px solid var(--border);
-            color: #666;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.9rem;
+            padding: 60px 20px 20px 20px;
             margin-top: auto;
         }
 
-        .footer-links a {
+        .footer-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h3 {
+            font-family: 'Cormorant Infant', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .footer-col h4 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+
+        .footer-col p {
+            color: #666;
+            font-size: 0.95rem;
+            max-width: 300px;
+        }
+
+        .footer-col a {
+            display: block;
             color: #666;
             text-decoration: none;
-            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 12px;
             transition: color 0.2s;
         }
 
-        .footer-links a:hover {
+        .footer-col a:hover {
             color: var(--accent);
-            text-decoration: underline;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            display: inline-block;
+            font-size: 1.2rem;
+            color: #666;
+            transition: color 0.2s, transform 0.2s;
+        }
+
+        .social-links a:hover {
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            color: #999;
+            font-size: 0.85rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         /* Mobile Responsiveness */
-        @media (max-width: 768px) {
-            .page-header h1 { font-size: 2.8rem; }
+        @media (max-width: 900px) {
+            .contact-layout {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
         }
 
         @media (max-width: 600px) {
-            header { padding: 15px 0; }
-            footer {
+            .contact-info-side h1 { font-size: 2.8rem; }
+            .contact-form-side { padding: 25px; }
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .footer-bottom {
                 flex-direction: column;
-                gap: 15px;
                 text-align: center;
+                gap: 10px;
             }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <a href="index.html" class="logo-container">
-            <img src="media/pictures/logo/kselis_logo_nobg_light.png" alt="Kselis Logo" onerror="this.style.display='none'">
-            <span class="logo-text">KSELIS</span>
-        </a>
-        <nav>
-            <ul>
-                <li>
-                    <a href="index.html">
-                        <span class="material-symbols-outlined" style="font-size: 18px;">arrow_back</span> Home
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </header>
+    <div class="container">
+        <header>
+            <a href="index.html" class="logo-container">
+                <img src="media/pictures/logo/kselis_logo_nobg_light.png" alt="Kselis Logo" onerror="this.style.display='none'">
+                <span class="logo-text">KSELIS</span>
+            </a>
+            <nav>
+                <a href="index.html">
+                    <span class="material-symbols-outlined" style="font-size: 18px;">arrow_back</span> Home
+                </a>
+            </nav>
+        </header>
 
-    <main>
-        <div class="contact-wrapper">
+        <main>
+            <div class="contact-layout">
+                
+                <!-- LEFT SIDE: Text and Cards -->
+                <div class="contact-info-side fade-in-up">
+                    <h1>Let's build together.</h1>
+                    <p>Whether you want to contribute to the open-source library, report an issue, or just say hello—we're always eager to connect with the community. </p>
+
+                    <div class="info-card">
+                        <div class="icon-wrapper">
+                            <span class="material-symbols-outlined">mail</span>
+                        </div>
+                        <div>
+                            <h3>Direct Email</h3>
+                            <p>For general inquiries and support.</p>
+                            <a href="mailto:kselis.institute@gmail.com">kselis.institute@gmail.com</a>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="icon-wrapper">
+                            <span class="material-symbols-outlined">forum</span>
+                        </div>
+                        <div>
+                            <h3>Community Campfire</h3>
+                            <p>Join the open discussion board.</p>
+                            <a href="https://kselis.github.io/campfire.html" target="_blank">Visit the Campfire &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT SIDE: The Form -->
+                <div class="contact-form-side fade-in-up" style="transition-delay: 0.1s;">
+                    
+                    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
+                    <!-- To stop using Google Forms, change the action URL to a Formspree endpoint -->
+                    <form id="kselisForm" action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSdawQ9R7LDjfJTKBWSz93LIz4iEB6e9as5Mhx6fFMiwr7I_mg/formResponse" method="POST" target="hidden_iframe">
+                        
+                        <div class="input-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="entry.1325372576" placeholder="Your Name" required>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="entry.490756582" placeholder="hello@example.com" required>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="message">Your Message</label>
+                            <textarea id="message" name="entry.488481316" placeholder="How can we help you today?" required></textarea>
+                        </div>
+                        
+                        <button type="submit">
+                            Send Message <span class="material-symbols-outlined" style="font-size: 20px;">send</span>
+                        </button>
+                    </form>
+
+                    <!-- Success Message -->
+                    <div id="successMessage">
+                        <div class="icon-circle">
+                            <span class="material-symbols-outlined" style="font-size: 32px;">check</span>
+                        </div>
+                        <h2>Message Sent!</h2>
+                        <p>Thank you for reaching out. We have received your message and will get back to you shortly.</p>
+                        <button onclick="window.location.reload()" class="btn-primary">Send Another Message</button>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- THE BIG FOOTER -->
+    <footer class="big-footer fade-in-up">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>KSELIS</h3>
+                <p>An open-source initiative democratizing quality education for everyone, regardless of region or background.</p>
+            </div>
             
-            <div class="page-header fade-in-up" id="contactHeader">
-                <h1>Get in Touch</h1>
-                <p>Have a question or want to work together? Fill out the form below and we'll get back to you shortly.</p>
+            <div class="footer-col">
+                <h4>Explore</h4>
+                <a href="about.html">About the Library</a>
+                <a href="contact.html">Contact Us</a>
+                <a href="careers.html">Career Opportunities</a>
             </div>
-
-            <!-- Hidden iframe for silent form submission -->
-            <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
-
-            <!-- Form -->
-            <form class="fade-in-up" id="kselisForm" action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSdawQ9R7LDjfJTKBWSz93LIz4iEB6e9as5Mhx6fFMiwr7I_mg/formResponse" method="POST" target="hidden_iframe">
-                
-                <div class="input-group">
-                    <label for="name">Full Name</label>
-                    <input type="text" id="name" name="entry.1325372576" placeholder="Rasputin" required>
-                </div>
-                
-                <div class="input-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" name="entry.490756582" placeholder="Rasputin@rocks.com" required>
-                </div>
-                
-                <div class="input-group">
-                    <label for="message">Your Message</label>
-                    <textarea id="message" name="entry.488481316" placeholder="How can we help you today?" required></textarea>
-                </div>
-                
-                <button type="submit">
-                    Send Message <span class="material-symbols-outlined" style="font-size: 20px;">arrow_forward</span>
-                </button>
-            </form>
-
-            <!-- Success Message (Hidden by default) -->
-            <div id="successMessage">
-                <div class="icon-circle">
-                    <span class="material-symbols-outlined" style="font-size: 32px;">check</span>
-                </div>
-                <h2>Message Sent!</h2>
-                <p>Thank you for reaching out. We have received your message and will get back to you shortly.</p>
-                <button onclick="window.location.reload()" class="btn-primary" style="margin: 0 auto;">Send Another Message</button>
+            
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+                <a href="guidelines.html">Community Guidelines</a>
             </div>
-
+            
+            <div class="footer-col">
+                <h4>Connect</h4>
+                <div class="social-links">
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
         </div>
-    </main>
-
-    <footer class="fade-in-up">
-        <p>&copy; 2024 Kselis Institute. All rights reserved.</p>
-        <div class="footer-links">
-            <a href="mailto:kselis.institute@gmail.com"><i class="fas fa-envelope"></i> Mail Us directly</a>
+        
+        <div class="footer-bottom">
+            <span>&copy; 2026 Kselis Institute. All rights reserved.</span>
+            <span>Built for the community.</span>
         </div>
     </footer>
 
@@ -382,10 +563,8 @@
         document.addEventListener('DOMContentLoaded', () => {
             const form = document.getElementById('kselisForm');
             const iframe = document.getElementById('hidden_iframe');
-            const header = document.getElementById('contactHeader');
             const successMessage = document.getElementById('successMessage');
 
-            // 1. When the form is submitted
             form.addEventListener('submit', function() {
                 submitted = true;
                 const submitBtn = form.querySelector('button[type="submit"]');
@@ -394,22 +573,14 @@
                 submitBtn.style.pointerEvents = 'none';
             });
 
-            // 2. When the hidden iframe finishes loading (submission complete)
             iframe.addEventListener('load', function() {
                 if (submitted) {
-                    // Hide the form and header
                     form.style.display = 'none';
-                    header.style.display = 'none';
-                    
-                    // Show the success message
                     successMessage.style.display = 'block';
-                    
-                    // Scroll slightly up so the user sees the message clearly
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
             });
 
-            /* --- Scroll Fade-In Animation --- */
+            /* Scroll Fade-In Animation */
             const observerOptions = {
                 root: null,
                 rootMargin: '0px',
@@ -429,6 +600,59 @@
             setTimeout(() => {
                 fadeElements.forEach(el => observer.observe(el));
             }, 100);
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+            // Grab both potential buttons (they might be null depending on the page)
+            const footerToggle = document.getElementById('themeToggleFooter');
+            const profileToggle = document.getElementById('themeToggleProfile');
+            
+            // Elements to update text/icons
+            const iconFooter = document.getElementById('themeIconFooter');
+            const textFooter = document.getElementById('themeTextFooter');
+            const iconProfile = document.getElementById('themeIconProfile');
+            const textProfile = document.getElementById('themeTextProfile');
+
+            // Function to apply the UI updates based on current mode
+            function applyThemeUI(isDark) {
+                if (isDark) {
+                    document.body.classList.add('dark-theme');
+                    if (footerToggle) {
+                        iconFooter.textContent = 'light_mode';
+                        textFooter.textContent = 'Light Mode';
+                    }
+                    if (profileToggle) {
+                        iconProfile.textContent = 'light_mode';
+                        textProfile.textContent = 'Light Mode';
+                    }
+                } else {
+                    document.body.classList.remove('dark-theme');
+                    if (footerToggle) {
+                        iconFooter.textContent = 'dark_mode';
+                        textFooter.textContent = 'Dark Mode';
+                    }
+                    if (profileToggle) {
+                        iconProfile.textContent = 'dark_mode';
+                        textProfile.textContent = 'Dark Mode';
+                    }
+                }
+            }
+
+            // 1. Check LocalStorage on page load
+            const currentTheme = localStorage.getItem('kselis_theme');
+            if (currentTheme === 'dark') {
+                applyThemeUI(true);
+            }
+
+            // 2. Click Handler Function
+            function handleThemeToggle() {
+                const willBeDark = !document.body.classList.contains('dark-theme');
+                localStorage.setItem('kselis_theme', willBeDark ? 'dark' : 'light');
+                applyThemeUI(willBeDark);
+            }
+
+            // 3. Attach click listeners to whichever buttons exist on this specific page
+            if (footerToggle) footerToggle.addEventListener('click', handleThemeToggle);
+            if (profileToggle) profileToggle.addEventListener('click', handleThemeToggle);
         });
     </script>
 </body>

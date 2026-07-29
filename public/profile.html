@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Dashboard | Kselis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <style>
+        :root {
+            --bg: #fafafa;
+            --card-bg: #ffffff;
+            --text: #111;
+            --text-muted: #666;
+            --border: #ddd;
+            --accent: #000;
+            --error: #d32f2f;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Raleway', sans-serif;
+        }
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 40px 20px;
+            background-image: radial-gradient(rgba(0,0,0,0.05) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        /* --- DARK THEME OVERRIDES --- */
+        body.dark-theme {
+            --bg: #121212;
+            --text: #f0f0f0;
+            --card-bg: #1e1e1e; /* Perfect for Profile/Contact cards */
+            --border: #333;
+            --hover-bg: #2a2a2a;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+
+        /* Smooth transition for the color swap */
+        body {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .card, .contact-form-side, .info-card {
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        .dashboard-container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            display: none; /* Hidden until auth */
+        }
+        
+        /* Header Section */
+        .profile-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        .profile-header h1 {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            margin: 0;
+        }
+        .back-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.2s;
+        }
+        .back-link:hover { color: var(--accent); }
+
+        /* Grid Layout */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            margin-bottom: 24px;
+        }
+
+        .card-title {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            margin-top: 0;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        /* User Profile Sidebar */
+        .profile-sidebar {
+            text-align: center;
+        }
+        .avatar-wrapper {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 15px auto;
+            border-radius: 50%;
+            overflow: hidden;
+            background-color: var(--accent);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-size: 2.5rem;
+            font-family: var(--font-heading);
+            border: 3px solid #fff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .avatar-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none; /* Hidden unless they have a Google photo */
+        }
+        .profile-sidebar h2 {
+            margin: 0 0 5px 0;
+            font-size: 1.4rem;
+        }
+        .profile-sidebar p {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        .verified-badge {
+            display: inline-block;
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-top: 12px;
+        }
+
+        /* Stats Row */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        .stat-box {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            padding: 15px;
+            border-radius: 6px;
+        }
+        .stat-box span {
+            display: block;
+            font-size: 1.8rem;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--accent);
+        }
+        .stat-box label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+
+        /* Enrolled Courses List */
+        .course-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .course-item {
+            padding: 15px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: border-color 0.2s;
+        }
+        .course-item:hover {
+            border-color: #999;
+        }
+        .course-item-title {
+            font-weight: 600;
+            font-size: 1.05rem;
+        }
+        .course-item-link {
+            text-decoration: none;
+            color: var(--accent);
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+            background: var(--bg);
+            border-radius: 6px;
+            border: 1px dashed var(--border);
+        }
+
+        /* Info List */
+        .info-list {
+            margin-bottom: 25px;
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.95rem;
+        }
+        .info-label { color: var(--text-muted); font-weight: 600; }
+        .info-value { font-weight: 500; }
+
+        /* Sign Out Button */
+        .btn-danger {
+            width: 100%;
+            padding: 12px;
+            background-color: #fff;
+            color: var(--error);
+            border: 1px solid var(--error);
+            border-radius: 4px;
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-danger:hover {
+            background-color: var(--error);
+            color: #fff;
+        }
+        
+        /* Loading Screen */
+        #loader {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50vh;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loader">Syncing secure data...</div>
+
+    <div class="dashboard-container" id="profileContainer">
+        <div class="profile-header">
+            <h1>Dashboard</h1>
+            <a href="index.html" class="back-link">
+                <span class="material-symbols-outlined" style="font-size: 18px;">arrow_back</span> Back to Home
+            </a>
+        </div>
+
+        <div class="dashboard-grid">
+            
+            <!-- LEFT COLUMN: Profile Info -->
+            <div class="card profile-sidebar">
+                <div class="avatar-wrapper">
+                    <!-- Text avatar (fallback) -->
+                    <span id="userAvatarText">K</span>
+                    <!-- Image avatar (Google) -->
+                    <img id="userAvatarImg" src="" alt="Profile Photo">
+                </div>
+                
+                <h2 id="profileName">Loading...</h2>
+                <p id="profileEmail">loading@email.com</p>
+                <div id="verifiedBadge" class="verified-badge" style="display: none;">
+                    <span class="material-symbols-outlined" style="font-size: 14px; vertical-align: middle;">verified</span> 
+                    Email Verified
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <span id="coursesStat">0</span>
+                        <label>Completed</label>
+                    </div>
+                    <div class="stat-box">
+                        <span id="notesStat">0</span>
+                        <label>Notes</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: Enrolled Courses & Details -->
+            <div>
+                <!-- Enrolled Courses Section -->
+                <div class="card">
+                    <h3 class="card-title">My Courses</h3>
+                    <ul class="course-list" id="enrolledCoursesList">
+                        <div class="empty-state">
+                            <span class="material-symbols-outlined" style="font-size: 32px; margin-bottom: 10px; color: #ccc;">school</span>
+                            <p>Loading enrollments...</p>
+                        </div>
+                    </ul>
+                </div>
+
+                <!-- Account Details Section -->
+                <div class="card">
+                    <h3 class="card-title">Account Details</h3>
+                    <div class="info-list">
+                        <div class="info-row">
+                            <span class="info-label">Account Role</span>
+                            <span class="info-value" style="text-transform: capitalize;" id="userRole">Student</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Member Since</span>
+                            <span class="info-value" id="joinDate">Loading...</span>
+                        </div>
+                        
+                        <!-- NEW PROFILE THEME TOGGLE -->
+                        <!-- <div class="info-row" style="align-items: center;">
+                            <span class="info-label">Theme Preference</span>
+                            <button id="themeToggleProfile" class="btn-primary" style="margin-top: 0; padding: 6px 12px; font-size: 0.85rem; width: auto;">
+                                <span class="material-symbols-outlined" id="themeIconProfile" style="font-size: 16px;">dark_mode</span>
+                                <span id="themeTextProfile">Dark Mode</span>
+                            </button>
+                        </div> -->
+                    </div>
+                    
+                    <button id="logoutBtn" class="btn-danger">
+                        <span class="material-symbols-outlined">logout</span> Sign Out
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyBoa4FqirqTzEDGW7zuLPfUjZT6pV1T6yw",
+            authDomain: "kselis.firebaseapp.com",
+            projectId: "kselis",
+            storageBucket: "kselis.firebasestorage.app",
+            messagingSenderId: "480272527158",
+            appId: "1:480272527158:web:19694da8df9dfe9c9f8d97"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // DOM Elements
+        const profileContainer = document.getElementById('profileContainer');
+        const loader = document.getElementById('loader');
+        const profileName = document.getElementById('profileName');
+        const profileEmail = document.getElementById('profileEmail');
+        
+        // Avatar Elements
+        const userAvatarText = document.getElementById('userAvatarText');
+        const userAvatarImg = document.getElementById('userAvatarImg');
+        
+        const verifiedBadge = document.getElementById('verifiedBadge');
+        const coursesStat = document.getElementById('coursesStat');
+        const notesStat = document.getElementById('notesStat');
+        
+        const enrolledCoursesList = document.getElementById('enrolledCoursesList');
+        const userRole = document.getElementById('userRole');
+        const joinDate = document.getElementById('joinDate');
+        
+        const logoutBtn = document.getElementById('logoutBtn');
+
+        // Auth Guard & Firestore Fetch
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                loader.style.display = 'none';
+                profileContainer.style.display = 'block';
+
+                // 1. Populate Basic Auth Data
+                const displayName = user.displayName || "Student";
+                profileName.textContent = displayName;
+                profileEmail.textContent = user.email;
+                
+                // 2. Handle Google Profile Picture vs Initial Fallback
+                if (user.photoURL) {
+                    userAvatarImg.src = user.photoURL;
+                    userAvatarImg.style.display = 'block';
+                    userAvatarText.style.display = 'none';
+                } else {
+                    userAvatarText.textContent = displayName.charAt(0).toUpperCase();
+                }
+
+                if (user.emailVerified) {
+                    verifiedBadge.style.display = 'inline-block';
+                }
+
+                // 3. Fetch Advanced Data from Firestore
+                try {
+                    const docRef = doc(db, "users", user.uid);
+                    const docSnap = await getDoc(docRef);
+                    
+                    if (docSnap.exists()) {
+                        const data = docSnap.data();
+                        
+                        // Set Stats
+                        coursesStat.textContent = data.coursesCompleted || "0";
+                        notesStat.textContent = data.savedNotes || "0";
+                        
+                        // Set Account Details
+                        if (data.role) userRole.textContent = data.role;
+                        
+                        if (data.joinedAt) {
+                            // Convert Firestore Timestamp to readable Date
+                            const date = data.joinedAt.toDate(); 
+                            joinDate.textContent = date.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+                        } else {
+                            joinDate.textContent = "Unknown";
+                        }
+
+                        // Render Enrolled Courses
+                        if (data.enrolledCourses && data.enrolledCourses.length > 0) {
+                            enrolledCoursesList.innerHTML = ''; // Clear loading state
+                            data.enrolledCourses.forEach(courseId => {
+                                // Format ID (e.g. "python-101" to "Python 101")
+                                const cleanTitle = courseId.replace(/-/g, ' ').toUpperCase();
+                                
+                                enrolledCoursesList.innerHTML += `
+                                    <li class="course-item">
+                                        <span class="course-item-title">${cleanTitle}</span>
+                                        <a href="course-viewer.html?course=${courseId}" class="course-item-link">Continue &rarr;</a>
+                                    </li>
+                                `;
+                            });
+                        } else {
+                            enrolledCoursesList.innerHTML = `
+                                <div class="empty-state">
+                                    <p style="margin: 0; margin-bottom: 10px;">You haven't enrolled in any courses yet.</p>
+                                    <a href="courses/index.html" style="color: var(--accent); font-weight: 600;">Browse Catalog &rarr;</a>
+                                </div>
+                            `;
+                        }
+
+                    } else {
+                        console.log("No Firestore document found for this user.");
+                    }
+                } catch (error) {
+                    console.error("Error fetching database profile:", error);
+                }
+
+            } else {
+                window.location.href = "login.html";
+            }
+        });
+
+        // Handle Logout
+        logoutBtn.addEventListener('click', () => {
+            logoutBtn.innerHTML = "Signing Out...";
+            signOut(auth);
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+            // Grab both potential buttons (they might be null depending on the page)
+            const footerToggle = document.getElementById('themeToggleFooter');
+            const profileToggle = document.getElementById('themeToggleProfile');
+            
+            // Elements to update text/icons
+            const iconFooter = document.getElementById('themeIconFooter');
+            const textFooter = document.getElementById('themeTextFooter');
+            const iconProfile = document.getElementById('themeIconProfile');
+            const textProfile = document.getElementById('themeTextProfile');
+
+            // Function to apply the UI updates based on current mode
+            function applyThemeUI(isDark) {
+                if (isDark) {
+                    document.body.classList.add('dark-theme');
+                    if (footerToggle) {
+                        iconFooter.textContent = 'light_mode';
+                        textFooter.textContent = 'Light Mode';
+                    }
+                    if (profileToggle) {
+                        iconProfile.textContent = 'light_mode';
+                        textProfile.textContent = 'Light Mode';
+                    }
+                } else {
+                    document.body.classList.remove('dark-theme');
+                    if (footerToggle) {
+                        iconFooter.textContent = 'dark_mode';
+                        textFooter.textContent = 'Dark Mode';
+                    }
+                    if (profileToggle) {
+                        iconProfile.textContent = 'dark_mode';
+                        textProfile.textContent = 'Dark Mode';
+                    }
+                }
+            }
+
+            // 1. Check LocalStorage on page load
+            const currentTheme = localStorage.getItem('kselis_theme');
+            if (currentTheme === 'dark') {
+                applyThemeUI(true);
+            }
+
+            // 2. Click Handler Function
+            function handleThemeToggle() {
+                const willBeDark = !document.body.classList.contains('dark-theme');
+                localStorage.setItem('kselis_theme', willBeDark ? 'dark' : 'light');
+                applyThemeUI(willBeDark);
+            }
+
+            // 3. Attach click listeners to whichever buttons exist on this specific page
+            if (footerToggle) footerToggle.addEventListener('click', handleThemeToggle);
+            if (profileToggle) profileToggle.addEventListener('click', handleThemeToggle);
+        });
+    </script>
+</body>
+</html>

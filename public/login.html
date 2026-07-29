@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication | Kselis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <style>
+        :root {
+            --bg: #fafafa;
+            --card-bg: #ffffff;
+            --text: #111;
+            --text-muted: #666;
+            --border: #ddd;
+            --accent: #000;
+            --error: #d32f2f;
+            --success: #2e7d32;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Raleway', sans-serif;
+        }
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-image: radial-gradient(rgba(0,0,0,0.05) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        /* --- DARK THEME OVERRIDES --- */
+        body.dark-theme {
+            --bg: #121212;
+            --text: #f0f0f0;
+            --card-bg: #1e1e1e; /* Perfect for Profile/Contact cards */
+            --border: #333;
+            --hover-bg: #2a2a2a;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+
+        /* Smooth transition for the color swap */
+        body {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .card, .contact-form-side, .info-card {
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        .auth-card {
+            background: var(--card-bg);
+            padding: 50px 40px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            transition: height 0.3s ease;
+        }
+        h1 {
+            font-family: var(--font-heading);
+            margin: 0 0 10px 0;
+            font-size: 2.5rem;
+        }
+        p.subtitle {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+        
+        /* Form Inputs */
+        .input-group {
+            margin-bottom: 16px;
+            text-align: left;
+            position: relative;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .input-group input:focus {
+            border-color: var(--accent);
+        }
+        .input-group input.input-error {
+            border-color: var(--error);
+        }
+
+        /* Password Visibility & Guides */
+        .password-wrapper {
+            position: relative;
+        }
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #888;
+            font-size: 20px;
+            user-select: none;
+        }
+        .toggle-password:hover { color: var(--accent); }
+        
+        .password-guide {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 6px;
+            display: none;
+        }
+        
+        .error-msg {
+            color: var(--error);
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 6px;
+            display: none;
+        }
+
+        .info-msg {
+            color: var(--success);
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 6px;
+            display: none;
+        }
+        
+        .forgot-password {
+            text-align: right;
+            margin-bottom: 24px;
+        }
+        .forgot-password a, .back-link a {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .forgot-password a:hover, .back-link a:hover {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+
+        .back-link {
+            display: none;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* Buttons */
+        .primary-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--accent);
+            color: #fff;
+            border: 1px solid var(--accent);
+            border-radius: 4px;
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .primary-btn:hover { opacity: 0.85; }
+        .primary-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .toggle-mode {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .toggle-mode a {
+            color: var(--accent);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .toggle-mode a:hover {
+            text-decoration: underline;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 24px 0;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--border);
+        }
+        .divider:not(:empty)::before { margin-right: .5em; }
+        .divider:not(:empty)::after { margin-left: .5em; }
+
+        .google-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            padding: 12px;
+            background-color: #fff;
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s, box-shadow 0.2s;
+        }
+        .google-btn:hover {
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .google-btn img {
+            width: 20px;
+            height: 20px;
+        }
+
+        #userInfo {
+            display: none;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+        #authFormContainer {
+            display: block;
+        }
+
+        .verify-banner {
+            display: none;
+            background: #fff8e1;
+            border: 1px solid #ffe082;
+            border-radius: 4px;
+            padding: 10px 14px;
+            font-size: 0.8rem;
+            color: #7a5b00;
+            margin-top: 14px;
+            text-align: left;
+        }
+        .verify-banner a {
+            color: #7a5b00;
+            font-weight: 700;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="auth-card">
+        <h1 id="formTitle">Welcome Back</h1>
+        <p class="subtitle" id="formSubtitle">Sign in to access your Kselis notes and saved progress.</p>
+
+        <div id="authFormContainer">
+            <!-- Full Name (Hidden initially) -->
+            <div class="input-group" id="nameInputGroup" style="display: none;">
+                <input type="text" id="nameInput" placeholder="Full Name" autocomplete="name">
+                <div class="error-msg" id="nameError"></div>
+            </div>
+
+            <!-- Email -->
+            <div class="input-group">
+                <input type="email" id="emailInput" placeholder="Email address" autocomplete="email" required>
+                <div class="error-msg" id="emailError"></div>
+            </div>
+
+            <!-- Password -->
+            <div class="input-group" id="passwordGroup">
+                <div class="password-wrapper">
+                    <input type="password" id="passwordInput" placeholder="Password" autocomplete="current-password" required>
+                    <span class="material-symbols-outlined toggle-password" id="togglePassword">visibility_off</span>
+                </div>
+                <div class="password-guide" id="passwordGuide">Must be at least 8 characters, and include a number, a letter, and a symbol.</div>
+                <div class="error-msg" id="passwordError"></div>
+            </div>
+            
+            <div class="forgot-password" id="forgotPasswordWrapper">
+                <a href="#" id="forgotPasswordLink">Forgot Password?</a>
+            </div>
+
+            <!-- Main Action Button -->
+            <button id="mainActionBtn" class="primary-btn">Sign In</button>
+
+            <!-- Reset Password Back Link -->
+            <div class="back-link" id="backToSignInWrapper">
+                <a href="#" id="backToSignInLink">← Back to Sign In</a>
+            </div>
+
+            <div class="toggle-mode" id="toggleModeWrapper">
+                <span id="toggleText">Don't have an account?</span> 
+                <a href="#" id="toggleModeLink">Sign Up</a>
+            </div>
+
+            <div id="socialAuthWrapper">
+                <div class="divider">OR</div>
+                <button id="googleLoginBtn" class="google-btn">
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google Logo">
+                    Continue with Google
+                </button>
+            </div>
+        </div>
+
+        <!-- Hidden section post-login -->
+        <div id="userInfo">
+            <p>Welcome, <strong id="userName"></strong>!</p>
+            <div class="verify-banner" id="verifyBanner">
+                Please verify your email address to unlock full access.
+                <a id="resendVerifyLink">Resend verification email</a>
+            </div>
+            <a href="index.html" class="primary-btn" style="display: block; text-align: center; text-decoration: none; margin-top: 24px; box-sizing: border-box;">
+                Back to Home Page
+            </a>
+            <button id="logoutBtn" class="primary-btn" style="background-color: #d32f2f; border-color: #d32f2f; margin-top: 16px;">Sign Out</button>
+        </div>
+    </div>
+
+    <!-- <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import {
+            getAuth,
+            signInWithPopup,
+            GoogleAuthProvider,
+            signOut,
+            onAuthStateChanged,
+            signInWithEmailAndPassword,
+            createUserWithEmailAndPassword,
+            updateProfile,
+            sendPasswordResetEmail,
+            sendEmailVerification
+        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        // App Check stops bots/scripts from calling the Auth REST API directly,
+        // bypassing this page entirely. Requires a reCAPTCHA v3 site key — see
+        // Firebase Console > Security > App Check to register one.
+        import { initializeAppCheck, ReCaptchaV3Provider } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app-check.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBoa4FqirqTzEDGW7zuLPfUjZT6pV1T6yw",
+            authDomain: "kselis.firebaseapp.com",
+            projectId: "kselis",
+            storageBucket: "kselis.firebasestorage.app",
+            messagingSenderId: "480272527158",
+            appId: "1:480272527158:web:19694da8df9dfe9c9f8d97",
+            measurementId: "G-F03VP7SM3Z"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+        // REPLACE with your real reCAPTCHA v3 site key (public key) from the
+        // Firebase Console. Until you do, App Check will fail to initialize —
+        // wrapped in try/catch so it degrades gracefully instead of breaking
+        // the rest of the page during setup/testing.
+        try {
+            initializeAppCheck(app, {
+                provider: new ReCaptchaV3Provider("6Le0ZWMtAAAAABwCZ58Lf5T4riHGtt9mnRTLiGNW"),
+                isTokenAutoRefreshEnabled: true
+            });
+        } catch (e) {
+            console.warn("App Check not initialized — add your reCAPTCHA v3 site key.", e);
+        }
+
+        // DOM Elements
+        const authFormContainer = document.getElementById('authFormContainer');
+        const formTitle = document.getElementById('formTitle');
+        const formSubtitle = document.getElementById('formSubtitle');
+        
+        const nameInputGroup = document.getElementById('nameInputGroup');
+        const passwordGroup = document.getElementById('passwordGroup');
+        const forgotPasswordWrapper = document.getElementById('forgotPasswordWrapper');
+        const socialAuthWrapper = document.getElementById('socialAuthWrapper');
+        const toggleModeWrapper = document.getElementById('toggleModeWrapper');
+        const backToSignInWrapper = document.getElementById('backToSignInWrapper');
+        
+        const emailInput = document.getElementById('emailInput');
+        const passwordInput = document.getElementById('passwordInput');
+        const nameInput = document.getElementById('nameInput');
+        
+        const emailError = document.getElementById('emailError');
+        const passwordError = document.getElementById('passwordError');
+        const nameError = document.getElementById('nameError');
+        const passwordGuide = document.getElementById('passwordGuide');
+        
+        const mainActionBtn = document.getElementById('mainActionBtn');
+        const googleLoginBtn = document.getElementById('googleLoginBtn');
+        const toggleModeLink = document.getElementById('toggleModeLink');
+        const forgotPasswordLink = document.getElementById('forgotPasswordLink');
+        const backToSignInLink = document.getElementById('backToSignInLink');
+        const togglePassword = document.getElementById('togglePassword');
+        
+        const logoutBtn = document.getElementById('logoutBtn');
+        const userInfo = document.getElementById('userInfo');
+        const userNameText = document.getElementById('userName');
+        const verifyBanner = document.getElementById('verifyBanner');
+        const resendVerifyLink = document.getElementById('resendVerifyLink');
+
+        let currentMode = 'signin'; // 'signin', 'signup', 'reset'
+        let submitting = false; // simple client-side re-entry guard against rapid double submits
+
+        // Password Visibility Toggle
+        togglePassword.addEventListener('click', () => {
+            const isPassword = passwordInput.getAttribute('type') === 'password';
+            passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
+            togglePassword.textContent = isPassword ? 'visibility' : 'visibility_off';
+        });
+
+        // Helper: Clear Errors
+        const clearErrors = () => {
+            emailError.style.display = 'none';
+            passwordError.style.display = 'none';
+            nameError.style.display = 'none';
+            emailInput.classList.remove('input-error');
+            passwordInput.classList.remove('input-error');
+            nameInput.classList.remove('input-error');
+        };
+
+        // Helper: Show specific error
+        const showError = (element, inputEl, message) => {
+            element.textContent = message;
+            element.style.display = 'block';
+            if(inputEl) inputEl.classList.add('input-error');
+        };
+
+        // UI Mode Switcher
+        const setMode = (mode) => {
+            currentMode = mode;
+            clearErrors();
+            passwordInput.value = '';
+            formSubtitle.style.color = '';
+
+            if (mode === 'signup') {
+                formTitle.textContent = "Create an Account";
+                formSubtitle.textContent = "Join the Kselis community to track your progress.";
+                nameInputGroup.style.display = 'block';
+                passwordGroup.style.display = 'block';
+                passwordGuide.style.display = 'block';
+                forgotPasswordWrapper.style.display = 'none';
+                backToSignInWrapper.style.display = 'none';
+                socialAuthWrapper.style.display = 'block';
+                toggleModeWrapper.style.display = 'block';
+                passwordInput.setAttribute('autocomplete', 'new-password');
+                
+                mainActionBtn.textContent = "Sign Up";
+                document.getElementById('toggleText').textContent = "Already have an account?";
+                toggleModeLink.textContent = "Sign In";
+                
+            } else if (mode === 'signin') {
+                formTitle.textContent = "Welcome Back";
+                formSubtitle.textContent = "Sign in to access your Kselis notes and saved progress.";
+                nameInputGroup.style.display = 'none';
+                passwordGroup.style.display = 'block';
+                passwordGuide.style.display = 'none';
+                forgotPasswordWrapper.style.display = 'block';
+                backToSignInWrapper.style.display = 'none';
+                socialAuthWrapper.style.display = 'block';
+                toggleModeWrapper.style.display = 'block';
+                passwordInput.setAttribute('autocomplete', 'current-password');
+                
+                mainActionBtn.textContent = "Sign In";
+                document.getElementById('toggleText').textContent = "Don't have an account?";
+                toggleModeLink.textContent = "Sign Up";
+
+            } else if (mode === 'reset') {
+                formTitle.textContent = "Reset Password";
+                formSubtitle.textContent = "Enter your email and we'll send you a link to reset your password.";
+                nameInputGroup.style.display = 'none';
+                passwordGroup.style.display = 'none';
+                forgotPasswordWrapper.style.display = 'none';
+                socialAuthWrapper.style.display = 'none';
+                toggleModeWrapper.style.display = 'none';
+                backToSignInWrapper.style.display = 'block';
+                
+                mainActionBtn.textContent = "Send Reset Link";
+            }
+        };
+
+        // Event Listeners for UI switching
+        toggleModeLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            setMode(currentMode === 'signin' ? 'signup' : 'signin');
+        });
+
+        forgotPasswordLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            setMode('reset');
+        });
+
+        backToSignInLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            setMode('signin');
+        });
+
+        // Map Firebase errors to a UI message.
+        // Deliberately generic for sign-in / sign-up failures that reveal whether
+        // an email is registered (user enumeration) — Firebase itself collapses
+        // most of these into `auth/invalid-credential`, but we normalize any
+        // legacy codes the same way as defense in depth.
+        const handleAuthError = (error, context) => {
+            const code = error.code;
+
+            if (context === 'signin') {
+                const enumerationCodes = [
+                    'auth/user-not-found',
+                    'auth/wrong-password',
+                    'auth/invalid-credential',
+                    'auth/invalid-email'
+                ];
+                if (enumerationCodes.includes(code)) {
+                    showError(emailError, emailInput, "Invalid email or password.");
+                    passwordInput.classList.add('input-error');
+                    return;
+                }
+                if (code === 'auth/too-many-requests') {
+                    showError(emailError, emailInput, "Too many attempts. Please wait a moment and try again.");
+                    return;
+                }
+                showError(emailError, emailInput, "Something went wrong. Please try again.");
+                return;
+            }
+
+            if (context === 'signup') {
+                if (code === 'auth/email-already-in-use') {
+                    // Intentionally still generic-ish: confirms the email is taken,
+                    // which is unavoidable for a sign-up flow, but doesn't leak
+                    // anything about the account's password or other details.
+                    showError(emailError, emailInput, "This email is already registered. Try signing in instead.");
+                } else if (code === 'auth/invalid-email') {
+                    showError(emailError, emailInput, "Please enter a valid email address.");
+                } else if (code === 'auth/weak-password') {
+                    showError(passwordError, passwordInput, "Please choose a stronger password.");
+                } else {
+                    showError(emailError, emailInput, "Something went wrong. Please try again.");
+                }
+                return;
+            }
+
+            if (context === 'reset') {
+                // Never confirm/deny whether the email exists for password resets either.
+                if (code === 'auth/invalid-email') {
+                    showError(emailError, emailInput, "Please enter a valid email address.");
+                } else if (code === 'auth/too-many-requests') {
+                    showError(emailError, emailInput, "Too many attempts. Please wait a moment and try again.");
+                } else {
+                    showError(emailError, emailInput, "Something went wrong. Please try again.");
+                }
+                return;
+            }
+
+            showError(emailError, emailInput, "Something went wrong. Please try again.");
+        };
+
+        // Main Action Button Logic (Handles Sign In, Sign Up, and Reset)
+        mainActionBtn.addEventListener('click', async () => {
+            if (submitting) return;
+            clearErrors();
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+            const name = nameInput.value.trim();
+
+            if (!email) {
+                showError(emailError, emailInput, "Email is required.");
+                return;
+            }
+
+            if (currentMode === 'reset') {
+                submitting = true;
+                mainActionBtn.disabled = true;
+                try {
+                    await sendPasswordResetEmail(auth, email);
+                    // Show the same success message whether or not the account exists,
+                    // so this flow can't be used to enumerate registered emails.
+                    formSubtitle.textContent = "If an account exists for that email, a reset link has been sent.";
+                    formSubtitle.style.color = "var(--success, #2e7d32)";
+                    emailInput.value = '';
+                } catch (error) {
+                    if (error.code === 'auth/user-not-found') {
+                        // Same success message even on "not found" — no enumeration signal.
+                        formSubtitle.textContent = "If an account exists for that email, a reset link has been sent.";
+                        formSubtitle.style.color = "var(--success, #2e7d32)";
+                        emailInput.value = '';
+                    } else {
+                        handleAuthError(error, 'reset');
+                    }
+                } finally {
+                    submitting = false;
+                    mainActionBtn.disabled = false;
+                }
+                return;
+            }
+
+            if (!password) {
+                showError(passwordError, passwordInput, "Password is required.");
+                return;
+            }
+
+            if (currentMode === 'signup') {
+                if (!name) {
+                    showError(nameError, nameInput, "Full name is required.");
+                    return;
+                }
+
+                // Client-side password check is a UX nicety only — it is NOT a
+                // security control. Configure the real minimum password policy
+                // under Firebase Console > Authentication > Settings so it's
+                // enforced server-side regardless of what calls the API.
+                const pwRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{8,}$/;
+                if (!pwRegex.test(password)) {
+                    showError(passwordError, passwordInput, "Password does not meet the requirements.");
+                    return;
+                }
+
+                submitting = true;
+                mainActionBtn.disabled = true;
+                try {
+                    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                    await updateProfile(userCredential.user, { displayName: name });
+                    await sendEmailVerification(userCredential.user);
+                } catch (error) {
+                    handleAuthError(error, 'signup');
+                } finally {
+                    submitting = false;
+                    mainActionBtn.disabled = false;
+                }
+
+            } else if (currentMode === 'signin') {
+                submitting = true;
+                mainActionBtn.disabled = true;
+                try {
+                    await signInWithEmailAndPassword(auth, email, password);
+                } catch (error) {
+                    handleAuthError(error, 'signin');
+                } finally {
+                    submitting = false;
+                    mainActionBtn.disabled = false;
+                }
+            }
+        });
+
+        // Google Auth
+        googleLoginBtn.addEventListener('click', () => {
+            signInWithPopup(auth, provider).catch((error) => {
+                // Popup-closed-by-user etc. aren't real errors worth surfacing as failures.
+                if (error.code === 'auth/popup-closed-by-user') return;
+                showError(emailError, null, "Something went wrong signing in with Google. Please try again.");
+            });
+        });
+
+        // Resend verification email
+        resendVerifyLink.addEventListener('click', async () => {
+            if (auth.currentUser) {
+                try {
+                    await sendEmailVerification(auth.currentUser);
+                    resendVerifyLink.textContent = "Sent! Check your inbox.";
+                } catch (e) {
+                    resendVerifyLink.textContent = "Couldn't send — try again shortly.";
+                }
+            }
+        });
+
+        // Logout
+        logoutBtn.addEventListener('click', () => {
+            signOut(auth).then(() => {
+                emailInput.value = '';
+                passwordInput.value = '';
+                nameInput.value = '';
+                setMode('signin');
+            });
+        });
+
+        // Auth State Listener
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                authFormContainer.style.display = 'none';
+                userInfo.style.display = 'block';
+                formTitle.textContent = "You're all set";
+                formSubtitle.textContent = "";
+                userNameText.textContent = user.displayName || user.email;
+
+                // Gate on verification status rather than trusting the client alone —
+                // pair this with server-side / Firestore rule checks on
+                // `request.auth.token.email_verified` for anything sensitive.
+                if (!user.emailVerified) {
+                    verifyBanner.style.display = 'block';
+                    resendVerifyLink.textContent = "Resend verification email";
+                } else {
+                    verifyBanner.style.display = 'none';
+                }
+            } else {
+                authFormContainer.style.display = 'block';
+                userInfo.style.display = 'none';
+                verifyBanner.style.display = 'none';
+                setMode(currentMode); // Reset headers based on current mode
+            }
+        });
+    </script> -->
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import {
+            getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged,
+            signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile,
+            sendPasswordResetEmail, sendEmailVerification
+        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        
+        import { initializeAppCheck, ReCaptchaEnterpriseProvider } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app-check.js";
+        
+        // --- NEW: FIRESTORE IMPORTS ---
+        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBoa4FqirqTzEDGW7zuLPfUjZT6pV1T6yw",
+            authDomain: "kselis.firebaseapp.com",
+            projectId: "kselis",
+            storageBucket: "kselis.firebasestorage.app",
+            messagingSenderId: "480272527158",
+            appId: "1:480272527158:web:19694da8df9dfe9c9f8d97",
+            measurementId: "G-F03VP7SM3Z"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+        
+        // --- NEW: INITIALIZE FIRESTORE ---
+        const db = getFirestore(app); 
+
+        try {
+            initializeAppCheck(app, {
+                provider: new ReCaptchaEnterpriseProvider("6Le0ZWMtAAAAABwCZ58Lf5T4riHGtt9mnRTLiGNW"),
+                isTokenAutoRefreshEnabled: true
+            });
+        } catch (e) {
+            console.warn("App Check not initialized", e);
+        }
+
+        // [All your existing DOM Elements go here...]
+        const authFormContainer = document.getElementById('authFormContainer');
+        const formTitle = document.getElementById('formTitle');
+        const formSubtitle = document.getElementById('formSubtitle');
+        const nameInputGroup = document.getElementById('nameInputGroup');
+        const passwordGroup = document.getElementById('passwordGroup');
+        const forgotPasswordWrapper = document.getElementById('forgotPasswordWrapper');
+        const socialAuthWrapper = document.getElementById('socialAuthWrapper');
+        const toggleModeWrapper = document.getElementById('toggleModeWrapper');
+        const backToSignInWrapper = document.getElementById('backToSignInWrapper');
+        const emailInput = document.getElementById('emailInput');
+        const passwordInput = document.getElementById('passwordInput');
+        const nameInput = document.getElementById('nameInput');
+        const emailError = document.getElementById('emailError');
+        const passwordError = document.getElementById('passwordError');
+        const nameError = document.getElementById('nameError');
+        const passwordGuide = document.getElementById('passwordGuide');
+        const mainActionBtn = document.getElementById('mainActionBtn');
+        const googleLoginBtn = document.getElementById('googleLoginBtn');
+        const toggleModeLink = document.getElementById('toggleModeLink');
+        const forgotPasswordLink = document.getElementById('forgotPasswordLink');
+        const backToSignInLink = document.getElementById('backToSignInLink');
+        const togglePassword = document.getElementById('togglePassword');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const userInfo = document.getElementById('userInfo');
+        const userNameText = document.getElementById('userName');
+        const verifyBanner = document.getElementById('verifyBanner');
+        const resendVerifyLink = document.getElementById('resendVerifyLink');
+
+        let currentMode = 'signin'; 
+        let submitting = false; 
+
+        // [Keep all your existing helper functions: togglePassword, clearErrors, showError, setMode, handleAuthError, etc.]
+        togglePassword.addEventListener('click', () => {
+            const isPassword = passwordInput.getAttribute('type') === 'password';
+            passwordInput.setAttribute('type', isPassword ? 'text' : 'password');
+            togglePassword.textContent = isPassword ? 'visibility' : 'visibility_off';
+        });
+
+        const clearErrors = () => {
+            emailError.style.display = 'none';
+            passwordError.style.display = 'none';
+            nameError.style.display = 'none';
+            emailInput.classList.remove('input-error');
+            passwordInput.classList.remove('input-error');
+            nameInput.classList.remove('input-error');
+        };
+
+        const showError = (element, inputEl, message) => {
+            element.textContent = message;
+            element.style.display = 'block';
+            if(inputEl) inputEl.classList.add('input-error');
+        };
+
+        const setMode = (mode) => {
+            currentMode = mode;
+            clearErrors();
+            passwordInput.value = '';
+            formSubtitle.style.color = '';
+
+            if (mode === 'signup') {
+                formTitle.textContent = "Create an Account";
+                formSubtitle.textContent = "Join the Kselis community to track your progress.";
+                nameInputGroup.style.display = 'block';
+                passwordGroup.style.display = 'block';
+                passwordGuide.style.display = 'block';
+                forgotPasswordWrapper.style.display = 'none';
+                backToSignInWrapper.style.display = 'none';
+                socialAuthWrapper.style.display = 'block';
+                toggleModeWrapper.style.display = 'block';
+                passwordInput.setAttribute('autocomplete', 'new-password');
+                mainActionBtn.textContent = "Sign Up";
+                document.getElementById('toggleText').textContent = "Already have an account?";
+                toggleModeLink.textContent = "Sign In";
+            } else if (mode === 'signin') {
+                formTitle.textContent = "Welcome Back";
+                formSubtitle.textContent = "Sign in to access your Kselis notes and saved progress.";
+                nameInputGroup.style.display = 'none';
+                passwordGroup.style.display = 'block';
+                passwordGuide.style.display = 'none';
+                forgotPasswordWrapper.style.display = 'block';
+                backToSignInWrapper.style.display = 'none';
+                socialAuthWrapper.style.display = 'block';
+                toggleModeWrapper.style.display = 'block';
+                passwordInput.setAttribute('autocomplete', 'current-password');
+                mainActionBtn.textContent = "Sign In";
+                document.getElementById('toggleText').textContent = "Don't have an account?";
+                toggleModeLink.textContent = "Sign Up";
+            } else if (mode === 'reset') {
+                formTitle.textContent = "Reset Password";
+                formSubtitle.textContent = "Enter your email and we'll send you a link to reset your password.";
+                nameInputGroup.style.display = 'none';
+                passwordGroup.style.display = 'none';
+                forgotPasswordWrapper.style.display = 'none';
+                socialAuthWrapper.style.display = 'none';
+                toggleModeWrapper.style.display = 'none';
+                backToSignInWrapper.style.display = 'block';
+                mainActionBtn.textContent = "Send Reset Link";
+            }
+        };
+
+        toggleModeLink.addEventListener('click', (e) => { e.preventDefault(); setMode(currentMode === 'signin' ? 'signup' : 'signin'); });
+        forgotPasswordLink.addEventListener('click', (e) => { e.preventDefault(); setMode('reset'); });
+        backToSignInLink.addEventListener('click', (e) => { e.preventDefault(); setMode('signin'); });
+
+        const handleAuthError = (error, context) => { /* Keep your existing error logic */
+            showError(emailError, emailInput, error.message.replace("Firebase: ", ""));
+        };
+
+        // Main Action Button Logic
+        mainActionBtn.addEventListener('click', async () => {
+            if (submitting) return;
+            clearErrors();
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+            const name = nameInput.value.trim();
+
+            if (!email) { showError(emailError, emailInput, "Email is required."); return; }
+
+            if (currentMode === 'reset') {
+                submitting = true; mainActionBtn.disabled = true;
+                try {
+                    await sendPasswordResetEmail(auth, email);
+                    formSubtitle.textContent = "If an account exists, a reset link has been sent.";
+                    formSubtitle.style.color = "var(--success, #2e7d32)";
+                    emailInput.value = '';
+                } catch (error) {
+                    if (error.code === 'auth/user-not-found') {
+                        formSubtitle.textContent = "If an account exists, a reset link has been sent.";
+                        formSubtitle.style.color = "var(--success, #2e7d32)";
+                        emailInput.value = '';
+                    } else { handleAuthError(error, 'reset'); }
+                } finally { submitting = false; mainActionBtn.disabled = false; }
+                return;
+            }
+
+            if (!password) { showError(passwordError, passwordInput, "Password is required."); return; }
+
+            if (currentMode === 'signup') {
+                if (!name) { showError(nameError, nameInput, "Full name is required."); return; }
+                
+                const pwRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{8,}$/;
+                if (!pwRegex.test(password)) { showError(passwordError, passwordInput, "Password does not meet the requirements."); return; }
+
+                submitting = true; mainActionBtn.disabled = true;
+                try {
+                    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                    await updateProfile(userCredential.user, { displayName: name });
+                    await sendEmailVerification(userCredential.user);
+                    
+                    // --- NEW: SAVE TO FIRESTORE ON SIGNUP ---
+                    await setDoc(doc(db, "users", userCredential.user.uid), {
+                        fullName: name,
+                        email: email,
+                        role: "student",
+                        joinedAt: new Date(),
+                        coursesCompleted: 0,
+                        savedNotes: 0
+                    });
+
+                } catch (error) { handleAuthError(error, 'signup'); } 
+                finally { submitting = false; mainActionBtn.disabled = false; }
+
+            } else if (currentMode === 'signin') {
+                submitting = true; mainActionBtn.disabled = true;
+                try { await signInWithEmailAndPassword(auth, email, password); } 
+                catch (error) { handleAuthError(error, 'signin'); } 
+                finally { submitting = false; mainActionBtn.disabled = false; }
+            }
+        });
+
+        // --- NEW: GOOGLE AUTH SAVES TO FIRESTORE ---
+        googleLoginBtn.addEventListener('click', () => {
+            signInWithPopup(auth, provider).then(async (result) => {
+                const userRef = doc(db, "users", result.user.uid);
+                const userSnap = await getDoc(userRef);
+                
+                // Only create the document if it's their very first time logging in
+                if (!userSnap.exists()) {
+                    await setDoc(userRef, {
+                        fullName: result.user.displayName || "Student",
+                        email: result.user.email,
+                        role: "student",
+                        joinedAt: new Date(),
+                        coursesCompleted: 0,
+                        savedNotes: 0
+                    });
+                }
+            }).catch((error) => {
+                if (error.code === 'auth/popup-closed-by-user') return;
+                showError(emailError, null, "Something went wrong signing in with Google.");
+            });
+        });
+
+        resendVerifyLink.addEventListener('click', async () => { /* keep existing */ });
+        logoutBtn.addEventListener('click', () => { /* keep existing */ });
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                authFormContainer.style.display = 'none';
+                userInfo.style.display = 'block';
+                formTitle.textContent = "You're all set";
+                formSubtitle.textContent = "";
+                userNameText.textContent = user.displayName || user.email;
+                if (!user.emailVerified) {
+                    verifyBanner.style.display = 'block';
+                    resendVerifyLink.textContent = "Resend verification email";
+                } else { verifyBanner.style.display = 'none'; }
+            } else {
+                authFormContainer.style.display = 'block';
+                userInfo.style.display = 'none';
+                verifyBanner.style.display = 'none';
+                setMode(currentMode);
+            }
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+            // Grab both potential buttons (they might be null depending on the page)
+            const footerToggle = document.getElementById('themeToggleFooter');
+            const profileToggle = document.getElementById('themeToggleProfile');
+            
+            // Elements to update text/icons
+            const iconFooter = document.getElementById('themeIconFooter');
+            const textFooter = document.getElementById('themeTextFooter');
+            const iconProfile = document.getElementById('themeIconProfile');
+            const textProfile = document.getElementById('themeTextProfile');
+
+            // Function to apply the UI updates based on current mode
+            function applyThemeUI(isDark) {
+                if (isDark) {
+                    document.body.classList.add('dark-theme');
+                    if (footerToggle) {
+                        iconFooter.textContent = 'light_mode';
+                        textFooter.textContent = 'Light Mode';
+                    }
+                    if (profileToggle) {
+                        iconProfile.textContent = 'light_mode';
+                        textProfile.textContent = 'Light Mode';
+                    }
+                } else {
+                    document.body.classList.remove('dark-theme');
+                    if (footerToggle) {
+                        iconFooter.textContent = 'dark_mode';
+                        textFooter.textContent = 'Dark Mode';
+                    }
+                    if (profileToggle) {
+                        iconProfile.textContent = 'dark_mode';
+                        textProfile.textContent = 'Dark Mode';
+                    }
+                }
+            }
+
+            // 1. Check LocalStorage on page load
+            const currentTheme = localStorage.getItem('kselis_theme');
+            if (currentTheme === 'dark') {
+                applyThemeUI(true);
+            }
+
+            // 2. Click Handler Function
+            function handleThemeToggle() {
+                const willBeDark = !document.body.classList.contains('dark-theme');
+                localStorage.setItem('kselis_theme', willBeDark ? 'dark' : 'light');
+                applyThemeUI(willBeDark);
+            }
+
+            // 3. Attach click listeners to whichever buttons exist on this specific page
+            if (footerToggle) footerToggle.addEventListener('click', handleThemeToggle);
+            if (profileToggle) profileToggle.addEventListener('click', handleThemeToggle);
+        });
+    </script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us | Kselis</title>
+    <title>Careers | Kselis</title>
     
     <link rel="icon" href="media/pictures/logo/kselis_logo_nobg_light.png" type="image/x-icon">
     
@@ -21,10 +21,8 @@
             --text: #111;
             --accent: #000;
             --border: #ddd;
-            --hover-bg: #f0f0f0;
             --font-heading: 'Playfair Display', serif;
             --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            --card-bg: #ffffff;
         }
 
         * {
@@ -39,7 +37,7 @@
             background-color: var(--bg);
             color: var(--text);
             margin: 0;
-            padding: 0; /* Removed side padding here so footer spans full width */
+            padding: 0;
             line-height: 1.7;
             overflow-x: hidden;
             background-image: 
@@ -50,27 +48,7 @@
             flex-direction: column;
             min-height: 100vh;
         }
-        /* --- DARK THEME OVERRIDES --- */
-        body.dark-theme {
-            --bg: #121212;
-            --text: #f0f0f0;
-            --card-bg: #1e1e1e; /* Perfect for Profile/Contact cards */
-            --border: #333;
-            --hover-bg: #2a2a2a;
-            background-image: 
-                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-        }
 
-        /* Smooth transition for the color swap */
-        body {
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-        .card, .contact-form-side, .info-card {
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-        }
-
-        /* Added a container class to constrain the width of the main content instead of the body */
         .container {
             max-width: 1100px;
             margin: 0 auto;
@@ -117,6 +95,7 @@
             display: flex;
             list-style: none;
             align-items: center;
+            gap: 1.5rem;
         }
 
         nav a {
@@ -139,7 +118,7 @@
             padding-bottom: 60px;
         }
 
-        /* Centered Content Wrapper for balance */
+        /* Centered Content Wrapper */
         .content-wrapper {
             max-width: 900px; 
             margin: 0 auto;   
@@ -156,6 +135,13 @@
             font-weight: 400;
             line-height: 1.2;
             color: var(--text);
+            margin-bottom: 15px;
+        }
+
+        .page-header p {
+            font-size: 1.15rem;
+            color: #555;
+            max-width: 700px;
         }
 
         /* Sections & Typography */
@@ -167,32 +153,137 @@
             font-family: var(--font-heading);
             font-size: 2rem;
             font-weight: 400;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             padding-bottom: 10px;
             border-bottom: 1px solid var(--border);
             color: var(--text);
         }
 
-        .section p {
-            font-size: 1.1rem;
-            color: #444;
-            margin-bottom: 24px;
-            text-align: justify;
+        /* Job Listings */
+        .job-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
 
-        .section p strong {
-            color: var(--text);
+        .job-card {
+            background-color: #fff;
+            border: 1px solid var(--border);
+            padding: 30px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            transition: border-color 0.2s, transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .job-card:hover {
+            border-color: #999;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.03);
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .job-title {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
             font-weight: 600;
+            margin: 0;
+            color: var(--text);
         }
 
-        .highlight-box {
-            background-color: rgba(0, 0, 0, 0.02);
-            border-left: 3px solid var(--accent);
-            padding: 25px 30px;
-            margin: 40px 0;
-            font-style: italic;
+        .job-badges {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background-color: var(--bg);
+            border: 1px solid var(--border);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
             color: #555;
-            font-size: 1.05rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .badge.accent {
+            background-color: #f0fdf4;
+            color: #166534;
+            border-color: #bbf7d0;
+        }
+
+        .job-card p {
+            color: #555;
+            font-size: 1rem;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .job-action {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .job-card:hover .job-action {
+            text-decoration: underline;
+        }
+
+        /* Perks Section */
+        .perks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .perk-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .perk-item .icon {
+            background: #fff;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+
+        .perk-item h3 {
+            font-size: 1.1rem;
+            margin: 0 0 5px 0;
+            font-family: var(--font-heading);
+        }
+
+        .perk-item p {
+            margin: 0;
+            font-size: 0.95rem;
+            color: #555;
         }
 
         /* Scroll Animations */
@@ -201,7 +292,6 @@
             transform: translateY(30px);
             transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
-
         .fade-in-up.visible {
             opacity: 1;
             transform: translateY(0);
@@ -253,23 +343,15 @@
             margin-bottom: 12px;
             transition: color 0.2s;
         }
+        .footer-col a:hover { color: var(--accent); }
 
-        .footer-col a:hover {
-            color: var(--accent);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-        }
-
+        .social-links { display: flex; gap: 15px; }
         .social-links a {
             display: inline-block;
             font-size: 1.2rem;
             color: #666;
             transition: color 0.2s, transform 0.2s;
         }
-
         .social-links a:hover {
             color: var(--accent);
             transform: translateY(-2px);
@@ -289,34 +371,26 @@
 
         /* Mobile Responsiveness */
         @media (max-width: 900px) {
-            .footer-grid {
-                grid-template-columns: 1fr 1fr;
-            }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
         }
-
         @media (max-width: 768px) {
             header { padding: 15px 0; margin-bottom: 40px; }
             .page-header h1 { font-size: 2.8rem; }
             h2.section-title { font-size: 1.8rem; }
-            .highlight-box { padding: 20px; }
+            .hide-on-mobile { display: none !important; }
         }
-
         @media (max-width: 600px) {
-            .footer-grid {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-            .footer-bottom {
-                flex-direction: column;
-                text-align: center;
-                gap: 10px;
-            }
+            .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+            .footer-bottom { flex-direction: column; text-align: center; gap: 10px; }
+            .job-header { flex-direction: column; gap: 10px; }
         }
     </style>
 </head>
 <body>
 
     <div class="container">
+        
+        <!-- HARDCODED HEADER -->
         <header>
             <a href="index.html" class="logo-container">
                 <img src="media/pictures/logo/kselis_logo_nobg_light.png" alt="Kselis Logo" onerror="this.style.display='none'">
@@ -333,50 +407,101 @@
             </nav>
         </header>
 
+        <!-- MAIN CONTENT -->
         <main>
             <div class="content-wrapper">
                 <div class="page-header fade-in-up">
-                    <h1>About Us</h1>
+                    <h1>Join the Vision</h1>
+                    <p>Kselis is an open-source initiative driven by passionate volunteers, educators, and developers. Help us democratize education across the globe.</p>
                 </div>
 
                 <section class="section fade-in-up">
-                    <h2 class="section-title">Our Vision</h2>
-                    <p>
-                        KSELIS is a vision for democratizing education. We firmly believe that quality education must be universally accessible, particularly in underprivileged regions. With the rapid pace of modern technological advancements, humanity now possesses the tools required to make universal education a reality. 
-                    </p>
-                    <p>
-                        By making learning available to everyone, we aim to spark an exponential growth in global talent, allowing humanity to take a massive leap forward. To achieve this, we are constantly experimenting, hitting, and trying different approaches to see what truly works for learners across the globe.
-                    </p>
-
-                    <div class="highlight-box">
-                        *Note: "KSELIS" is currently a tentative name for our platform until we find the perfect title that fully encapsulates this grand vision.
+                    <h2 class="section-title">Why Contribute?</h2>
+                    <div class="perks-grid">
+                        <div class="perk-item">
+                            <div class="icon"><span class="material-symbols-outlined">public</span></div>
+                            <div>
+                                <h3>Global Impact</h3>
+                                <p>Build tools and resources that will directly assist underprivileged students globally.</p>
+                            </div>
+                        </div>
+                        <div class="perk-item">
+                            <div class="icon"><span class="material-symbols-outlined">terminal</span></div>
+                            <div>
+                                <h3>Open Source</h3>
+                                <p>Enhance your portfolio by actively contributing to a modern, scalable open-source stack.</p>
+                            </div>
+                        </div>
+                        <div class="perk-item">
+                            <div class="icon"><span class="material-symbols-outlined">schedule</span></div>
+                            <div>
+                                <h3>Flexible & Remote</h3>
+                                <p>Contribute on your own time, from anywhere in the world. We value output over hours.</p>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
                 <section class="section fade-in-up">
-                    <h2 class="section-title">The KSELIS E-Resource Library</h2>
-                    <p>
-                        The website you are exploring right now is the first step toward this dream—the <strong>KSELIS E-Resource Library</strong>. This platform provides free access to high-quality educational materials for the community. As this is our first step, we are experimenting with online communities and how to cater students in higher education remotely.
-                    </p>
-                    <p>
-                        The library is entirely maintained by the <strong>Community</strong>. Currently, a curated group of selected community maintainers handles first-level edits to ensure quality and structure. Following our pilot run, we plan to introduce public editing and resource contribution features, which will be carefully reviewed by our core team to maintain the integrity of the platform.
-                    </p>
+                    <h2 class="section-title">Open Positions</h2>
+                    
+                    <div class="job-list">
+                        
+                        <!-- Job Card 1 -->
+                        <a href="contact.html" class="job-card">
+                            <div class="job-header">
+                                <h3 class="job-title">Content Maintainer</h3>
+                                <div class="job-badges">
+                                    <span class="badge accent">Actively Recruiting</span>
+                                    <span class="badge">Remote / Volunteer</span>
+                                </div>
+                            </div>
+                            <p>Help us curate, review, and structure educational materials. You will act as a gatekeeper for the E-Resource Library, ensuring formatting standards and high-quality educational delivery.</p>
+                            <span class="job-action">Apply Now <span class="material-symbols-outlined" style="font-size: 18px;">arrow_forward</span></span>
+                        </a>
+
+                        <!-- Job Card 2 -->
+                        <a href="contact.html" class="job-card">
+                            <div class="job-header">
+                                <h3 class="job-title">Frontend Contributor (HTML/CSS/JS)</h3>
+                                <div class="job-badges">
+                                    <span class="badge">Remote / Open Source</span>
+                                </div>
+                            </div>
+                            <p>Work on the core UI/UX of the Kselis Dashboard, Course Viewer, and Campfire platform. Experience with vanilla JavaScript, Firebase integrations, and responsive design is a huge plus.</p>
+                            <span class="job-action">View Repository <span class="material-symbols-outlined" style="font-size: 18px;">arrow_forward</span></span>
+                        </a>
+
+                        <!-- Job Card 3 -->
+                        <a href="contact.html" class="job-card">
+                            <div class="job-header">
+                                <h3 class="job-title">Community Moderator</h3>
+                                <div class="job-badges">
+                                    <span class="badge">Remote / Volunteer</span>
+                                </div>
+                            </div>
+                            <p>Keep the Campfire discussion boards clean, engaging, and welcoming. We are looking for empathetic leaders to help guide conversations and support student queries.</p>
+                            <span class="job-action">Apply Now <span class="material-symbols-outlined" style="font-size: 18px;">arrow_forward</span></span>
+                        </a>
+
+                    </div>
                 </section>
 
                 <section class="section fade-in-up">
-                    <h2 class="section-title">Leadership</h2>
-                    <p>
-                        <strong>Prakhar</strong> is the Lead of this initiative. A dedicated student pursuing Data Science at IIT Madras and a Major in AI through IIT Ropar.
-                    </p>
-                    <p>
-                        Operating as both a developer and a tutor, his background includes managing large-scale student communities and architecting community infrastructure. He leads this project with a core belief that leveraging technology is the key to creating inclusive, universal knowledge platforms for the future.
-                    </p>
+                    <div style="background-color: rgba(0,0,0,0.02); border: 1px solid var(--border); padding: 40px; border-radius: 8px; text-align: center;">
+                        <h2 style="font-family: var(--font-heading); font-size: 1.8rem; margin-bottom: 15px;">Don't see a fit?</h2>
+                        <p style="color: #555; margin-bottom: 25px; max-width: 500px; margin-left: auto; margin-right: auto;">
+                            We are always looking for driven individuals. If you have an idea for how you can help push the Kselis vision forward, we want to hear from you.
+                        </p>
+                        <a href="contact.html" style="background: var(--accent); color: #fff; text-decoration: none; padding: 12px 24px; border-radius: 4px; font-weight: 600; display: inline-block;">Send an Open Pitch</a>
+                    </div>
                 </section>
+
             </div>
         </main>
     </div>
 
-    <!-- THE BIG FOOTER -->
+    <!-- HARDCODED BIG FOOTER -->
     <footer class="big-footer fade-in-up">
         <div class="footer-grid">
             <div class="footer-col">
@@ -415,9 +540,9 @@
         </div>
     </footer>
 
+    <!-- SCROLL ANIMATION SCRIPT -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            /* --- Scroll Fade-In Animation --- */
             const observerOptions = {
                 root: null,
                 rootMargin: '0px',
@@ -434,63 +559,9 @@
             }, observerOptions);
 
             const fadeElements = document.querySelectorAll('.fade-in-up');
-            // Trigger animation slightly earlier for elements already in viewport on load
             setTimeout(() => {
                 fadeElements.forEach(el => observer.observe(el));
             }, 100);
-        });
-        document.addEventListener('DOMContentLoaded', () => {
-            // Grab both potential buttons (they might be null depending on the page)
-            const footerToggle = document.getElementById('themeToggleFooter');
-            const profileToggle = document.getElementById('themeToggleProfile');
-            
-            // Elements to update text/icons
-            const iconFooter = document.getElementById('themeIconFooter');
-            const textFooter = document.getElementById('themeTextFooter');
-            const iconProfile = document.getElementById('themeIconProfile');
-            const textProfile = document.getElementById('themeTextProfile');
-
-            // Function to apply the UI updates based on current mode
-            function applyThemeUI(isDark) {
-                if (isDark) {
-                    document.body.classList.add('dark-theme');
-                    if (footerToggle) {
-                        iconFooter.textContent = 'light_mode';
-                        textFooter.textContent = 'Light Mode';
-                    }
-                    if (profileToggle) {
-                        iconProfile.textContent = 'light_mode';
-                        textProfile.textContent = 'Light Mode';
-                    }
-                } else {
-                    document.body.classList.remove('dark-theme');
-                    if (footerToggle) {
-                        iconFooter.textContent = 'dark_mode';
-                        textFooter.textContent = 'Dark Mode';
-                    }
-                    if (profileToggle) {
-                        iconProfile.textContent = 'dark_mode';
-                        textProfile.textContent = 'Dark Mode';
-                    }
-                }
-            }
-
-            // 1. Check LocalStorage on page load
-            const currentTheme = localStorage.getItem('kselis_theme');
-            if (currentTheme === 'dark') {
-                applyThemeUI(true);
-            }
-
-            // 2. Click Handler Function
-            function handleThemeToggle() {
-                const willBeDark = !document.body.classList.contains('dark-theme');
-                localStorage.setItem('kselis_theme', willBeDark ? 'dark' : 'light');
-                applyThemeUI(willBeDark);
-            }
-
-            // 3. Attach click listeners to whichever buttons exist on this specific page
-            if (footerToggle) footerToggle.addEventListener('click', handleThemeToggle);
-            if (profileToggle) profileToggle.addEventListener('click', handleThemeToggle);
         });
     </script>
 </body>
