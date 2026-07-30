@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POSH Policy | Kselis</title>
+    
+    <link rel="icon" href="media/pictures/logo/kselis_logo_nobg_light.png" type="image/x-icon">
+    
+    <!-- Fonts and Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Infant:wght@600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* Minimalist aesthetic with elegant typography */
+        :root {
+            --bg: #fafafa;
+            --text: #111;
+            --accent: #000;
+            --border: #ddd;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            line-height: 1.7;
+            overflow-x: hidden;
+            background-image: 
+                linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        /* Navigation */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 60px;
+            position: sticky;
+            top: 0;
+            background-color: var(--bg);
+            z-index: 100;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-container img {
+            height: 45px;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-family: 'Cormorant Infant', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #555;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        /* Main Content area */
+        main {
+            flex-grow: 1;
+            padding-bottom: 60px;
+        }
+
+        /* Centered Content Wrapper */
+        .content-wrapper {
+            max-width: 900px; 
+            margin: 0 auto;
+            background: #fff;
+            padding: 50px 60px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+        }
+
+        /* Hero / Page Title */
+        .page-header {
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 20px;
+        }
+
+        .page-header h1 {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            font-weight: 400;
+            line-height: 1.2;
+            color: var(--text);
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            color: #666;
+            font-size: 0.95rem;
+            font-style: italic;
+        }
+
+        /* Sections & Typography */
+        .policy-section {
+            margin-bottom: 40px;
+        }
+
+        h2.section-title {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text);
+        }
+
+        .policy-section p {
+            font-size: 1.05rem;
+            color: #444;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .policy-section ul, .policy-section ol {
+            margin-left: 20px;
+            margin-bottom: 20px;
+            color: #444;
+            font-size: 1.05rem;
+        }
+
+        .policy-section li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        .policy-section a {
+            color: var(--accent);
+            text-decoration: underline;
+            font-weight: 600;
+        }
+
+        /* BIG FOOTER */
+        .big-footer {
+            background-color: #fff;
+            border-top: 1px solid var(--border);
+            padding: 60px 20px 20px 20px;
+            margin-top: auto;
+        }
+
+        .footer-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h3 {
+            font-family: 'Cormorant Infant', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .footer-col h4 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+
+        .footer-col p {
+            color: #666;
+            font-size: 0.95rem;
+            max-width: 300px;
+        }
+
+        .footer-col a {
+            display: block;
+            color: #666;
+            text-decoration: none;
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+            transition: color 0.2s;
+        }
+        .footer-col a:hover { color: var(--accent); }
+
+        .social-links { display: flex; gap: 15px; }
+        .social-links a {
+            display: inline-block;
+            font-size: 1.2rem;
+            color: #666;
+            transition: color 0.2s, transform 0.2s;
+        }
+        .social-links a:hover {
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            color: #999;
+            font-size: 0.85rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 900px) {
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 768px) {
+            header { padding: 15px 0; margin-bottom: 40px; }
+            .content-wrapper { padding: 30px 20px; }
+            .page-header h1 { font-size: 2.2rem; }
+            h2.section-title { font-size: 1.3rem; }
+        }
+        @media (max-width: 600px) {
+            .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+            .footer-bottom { flex-direction: column; text-align: center; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- HEADER -->
+        <header>
+            <a href="../index.html" class="logo-container">
+                <img src="../media/pictures/logo/kselis_logo_nobg_light.png" alt="Kselis Logo" onerror="this.style.display='none'">
+                <span class="logo-text">KSELIS</span>
+            </a>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="../index.html">
+                            <span class="material-symbols-outlined" style="font-size: 18px;">arrow_back</span> Home
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- MAIN CONTENT -->
+        <main>
+            <div class="content-wrapper">
+                <div class="page-header">
+                    <h1>Prevention of Sexual Harassment (POSH) Policy</h1>
+                    <p>Last Updated: July 01, 2026</p>
+                </div>
+
+                <div class="policy-section">
+                    <h2 class="section-title">1. Our Commitment</h2>
+                    <p>KSELIS is deeply committed to fostering a safe, respectful, and inclusive learning environment for every member of our community. We believe that everyone deserves the right to learn, collaborate, mentor, and contribute without fear of harassment, discrimination, or intimidation.</p>
+                    <p>Sexual harassment of any form is strictly prohibited across all KSELIS platforms, activities, and events.</p>
+                </div>
+
+                <div class="policy-section">
+                    <h2 class="section-title">2. Scope</h2>
+                    <p>This policy applies to all individuals participating in or representing KSELIS, including but not limited to:</p>
+                    <ul>
+                        <li>Students and Learners</li>
+                        <li>Volunteers and Mentors</li>
+                        <li>Community Maintainers and Moderators</li>
+                        <li>Interns and Contributors</li>
+                        <li>Visitors participating in official KSELIS spaces</li>
+                    </ul>
+                    <p>The policy applies to interactions occurring through all official mediums, including:</p>
+                    <ul>
+                        <li>The official KSELIS Website</li>
+                        <li>Discord Community and Voice Channels</li>
+                        <li>Email Communications</li>
+                        <li>Video Conferences and Online Workshops</li>
+                        <li>Community Events</li>
+                        <li>Social Media managed by KSELIS</li>
+                        <li>Offline events organized by KSELIS</li>
+                    </ul>
+                </div>
+
+                <div class="policy-section">
+                    <h2 class="section-title">3. What Constitutes Sexual Harassment</h2>
+                    <p>Sexual harassment includes any unwelcome behavior of a sexual nature that creates an intimidating, hostile, degrading, humiliating, or offensive environment.</p>
+                    <p>Examples include, but are not limited to:</p>
+                    <ul>
+                        <li>Unwelcome sexual advances or requests for sexual favors.</li>
+                        <li>Sexually suggestive remarks, jokes, or gestures.</li>
+                        <li>Repeated unwanted flirting or inappropriate comments regarding someone's appearance or body.</li>
+                        <li>Sending sexually explicit messages, images, or sharing pornography/obscene material.</li>
+                        <li>Persistent unwanted direct messages, stalking, or intimidation.</li>
+                        <li>Physical contact without explicit consent.</li>
+                        <li>Threatening or coercive behavior related to sexual conduct.</li>
+                        <li>Retaliating against someone for rejecting advances or reporting misconduct.</li>
+                    </ul>
+                    <p><em>Harassment may occur regardless of gender, gender identity, sexual orientation, age, or position within the community.</em></p>
+                </div>
+
+                <div class="policy-section">
+                    <h2 class="section-title">4. Online Conduct</h2>
+                    <p>As KSELIS primarily operates through digital platforms, members are expected to maintain professional and respectful behavior during all online interactions. The following are strictly prohibited:</p>
+                    <ul>
+                        <li>Sending inappropriate direct messages or harassing users in Discord channels.</li>
+                        <li>Sharing explicit media of any kind.</li>
+                        <li>Recording meetings without explicit permission from all participants.</li>
+                        <li>Using voice channels to intimidate or harass others.</li>
+                        <li>Repeated unwanted contact after being asked to stop.</li>
+                        <li>Creating alternate accounts to bypass blocks or continue harassment.</li>
+                        <li>Misusing moderator or administrative privileges.</li>
+                    </ul>
+                    <p>Respecting personal boundaries is mandatory at all times.</p>
+                </div>
+
+                <div class="policy-section">
+                    <h2 class="section-title">5. Reporting an Incident</h2>
+                    <p>Anyone who experiences or witnesses sexual harassment is strongly encouraged to report the incident promptly. To help us take effective action, reports should include, where possible:</p>
+                    <ul>
+                        <li>The name or username of the individual involved.</li>
+                        <li>The date and approximate time of the incident.</li>
+                        <li>The platform where the incident occurred.</li>
+                        <li>A detailed description of the incident.</li>
+                        <li>Screenshots or supporting evidence (if available).</li>
+                    </ul>
+                    <p>Reports may be submitted directly through our official contact channels listed at the bottom of this policy.</p>
+                </div>
+
+                <div class="policy-section">
+                    <h2 class="section-title">6. Confidentiality</h2>
+                    <p>KSELIS treats all complaints with the utmost confidentiality. Information related to a complaint will only be shared with individuals directly involved in reviewing or resolving the matter, except where disclosure is required by applicable law.</p>
+                </div>
+
+                <div class="policy-section">
+                    <h2 class="section-title">7. Review Process</h2>
+                    <p>Upon receiving a complaint, the KSELIS core team will:</p>
+                    <ol>
+                        <li>Acknowledge receipt of the complaint promptly.</li>
+                        <li>Review all available information and evidence.</li>
+                        <li>Contact relevant parties privately if additional information is required.</li>
+                        <li>Evaluate the complaint fairly and impartially.</li>
+                        <li>Determine appropriate corrective measures based on the evidence.</li>
+                    </ol>
+                    <p>Every effort will be made to handle complaints promptly, professionally, and respectfully.</p>
+                </div>
+
+                <div class="policy-section">
+                    <h2 class="section-title">8. Possible Actions</h2>
+                    <p>Depending on the severity of the misconduct, KSELIS may take one or more of the following actions:</p>
+                    <ul>
+                        <li>Educational or formal warnings.</li>
+                        <li>Immediate removal of messages, posts, or content.</li>
+                        <li>Temporary communication restrictions (e.g., server mutes).</li>
+                        <li>Suspension from KSELIS platforms.</li>
+                        <li>Permanent removal and banning from the community.</li>
+                        <li>Removal from volunteer, moderator, or leadership positions.</li>
+                        <li>Restriction from attending future events.</li>
+                        <li>Referral to appropriate authorities where required by law.</li>
+                    </ul>
+                </div>
+
+                <div class="policy-section">
+                    <h2 class="section-title">9. Protection Against Retaliation</h2>
+                    <p>KSELIS strictly prohibits retaliation against anyone who reports misconduct in good faith or participates in an investigation. Acts of retaliation will not be tolerated and may themselves result in immediate disciplinary action.</p>
+                </div>
+
+                <div class="policy-section">
+                    <h2 class="section-title">10. False or Malicious Complaints</h2>
+                    <p>Knowingly making false or malicious allegations undermines community trust and the integrity of this policy. Individuals found to have intentionally submitted fabricated complaints may be subject to appropriate disciplinary action. <em>This provision does not apply to complaints made in good faith that cannot ultimately be substantiated.</em></p>
+                </div>
+
+                <div class="policy-section">
+                    <h2 class="section-title">11. Responsibilities of Community Members</h2>
+                    <p>Every member of KSELIS is expected to:</p>
+                    <ul>
+                        <li>Treat others with dignity and respect.</li>
+                        <li>Maintain professional communication.</li>
+                        <li>Respect personal boundaries.</li>
+                        <li>Report inappropriate behavior.</li>
+                        <li>Cooperate during investigations.</li>
+                        <li>Help create an inclusive, welcoming learning environment.</li>
+                    </ul>
+                </div>
+
+                <div class="policy-section">
+                    <h2 class="section-title">12. Leadership Responsibilities</h2>
+                    <p>KSELIS leadership, moderators, and community maintainers hold a higher standard and are expected to:</p>
+                    <ul>
+                        <li>Lead by example and set the standard for community conduct.</li>
+                        <li>Take all reports seriously.</li>
+                        <li>Respond fairly, impartially, and without bias.</li>
+                        <li>Maintain strict confidentiality.</li>
+                        <li>Take timely and appropriate corrective action.</li>
+                    </ul>
+                </div>
+
+                <div class="policy-section">
+                    <h2 class="section-title">13. Compliance</h2>
+                    <p>KSELIS currently operates as an independent educational initiative. As the organization evolves, this policy may be updated to align with applicable laws and regulatory requirements, including the <em>Prevention of Sexual Harassment of Women at Workplace (Prevention, Prohibition and Redressal) Act, 2013</em>, where applicable.</p>
+                </div>
+
+                <div class="policy-section">
+                    <h2 class="section-title">14. Changes to This Policy</h2>
+                    <p>KSELIS reserves the right to modify or update this policy at any time. Any revisions will be published directly on this page with an updated revision date.</p>
+                </div>
+
+                <div class="policy-section">
+                    <h2 class="section-title">15. Contact</h2>
+                    <p>For questions, concerns, or to report an incident related to this policy, please contact us directly at:<br>
+                    <strong>Email:</strong> <a href="mailto:kselis.institute@gmail.com">kselis.institute@gmail.com</a></p>
+                    
+                    <p style="margin-top: 30px; padding: 20px; background: rgba(0,0,0,0.02); border-left: 3px solid var(--accent); font-style: italic;">
+                        By participating in KSELIS communities, platforms, or events, you agree to uphold the principles outlined in this policy and contribute to maintaining a respectful, inclusive, and safe environment for everyone.
+                    </p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="big-footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>KSELIS</h3>
+                <p>An open-source initiative democratizing quality education for everyone, regardless of region or background.</p>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Explore</h4>
+                <a href="about.html">About the Library</a>
+                <a href="contact.html">Contact Us</a>
+                <a href="careers.html">Career Opportunities</a>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+                <a href="posh.html">POSH Guidelines</a>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Connect</h4>
+                <div class="social-links">
+                    <a href="https://x.com/KselisX" aria-label="Twitter" target="_blank"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://www.instagram.com/kselis.institute/" aria-label="Instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/company/kselisinstitute" aria-label="LinkedIn" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://github.com/Kselis" aria-label="GitHub" target="_blank"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <span>&copy; 2026 Kselis Institute. All rights reserved.</span>
+            <span>Built for the community.</span>
+        </div>
+    </footer>
+
+</body>
+</html>

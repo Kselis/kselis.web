@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy | Kselis</title>
+    
+    <link rel="icon" href="media/pictures/logo/kselis_logo_nobg_light.png" type="image/x-icon">
+    
+    <!-- Fonts and Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Infant:wght@600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* Minimalist aesthetic with elegant typography */
+        :root {
+            --bg: #fafafa;
+            --text: #111;
+            --accent: #000;
+            --border: #ddd;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            line-height: 1.7;
+            overflow-x: hidden;
+            background-image: 
+                linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        /* Navigation */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 60px;
+            position: sticky;
+            top: 0;
+            background-color: var(--bg);
+            z-index: 100;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-container img {
+            height: 45px;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-family: 'Cormorant Infant', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #555;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        /* Main Content area */
+        main {
+            flex-grow: 1;
+            padding-bottom: 60px;
+        }
+
+        /* Centered Content Wrapper */
+        .content-wrapper {
+            max-width: 900px; 
+            margin: 0 auto;
+            background: #fff;
+            padding: 50px 60px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+        }
+
+        /* Hero / Page Title */
+        .page-header {
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 20px;
+        }
+
+        .page-header h1 {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            font-weight: 400;
+            line-height: 1.2;
+            color: var(--text);
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            color: #666;
+            font-size: 0.95rem;
+            font-style: italic;
+        }
+
+        /* Sections & Typography */
+        .policy-section {
+            margin-bottom: 40px;
+        }
+
+        h2.section-title {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text);
+        }
+
+        .policy-section p {
+            font-size: 1.05rem;
+            color: #444;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .policy-section ul {
+            margin-left: 20px;
+            margin-bottom: 20px;
+            color: #444;
+            font-size: 1.05rem;
+        }
+
+        .policy-section li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        .policy-section a {
+            color: var(--accent);
+            text-decoration: underline;
+            font-weight: 600;
+        }
+
+        /* BIG FOOTER */
+        .big-footer {
+            background-color: #fff;
+            border-top: 1px solid var(--border);
+            padding: 60px 20px 20px 20px;
+            margin-top: auto;
+        }
+
+        .footer-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h3 {
+            font-family: 'Cormorant Infant', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .footer-col h4 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+
+        .footer-col p {
+            color: #666;
+            font-size: 0.95rem;
+            max-width: 300px;
+        }
+
+        .footer-col a {
+            display: block;
+            color: #666;
+            text-decoration: none;
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+            transition: color 0.2s;
+        }
+        .footer-col a:hover { color: var(--accent); }
+
+        .social-links { display: flex; gap: 15px; }
+        .social-links a {
+            display: inline-block;
+            font-size: 1.2rem;
+            color: #666;
+            transition: color 0.2s, transform 0.2s;
+        }
+        .social-links a:hover {
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            color: #999;
+            font-size: 0.85rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 900px) {
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 768px) {
+            header { padding: 15px 0; margin-bottom: 40px; }
+            .content-wrapper { padding: 30px 20px; }
+            .page-header h1 { font-size: 2.2rem; }
+            h2.section-title { font-size: 1.3rem; }
+        }
+        @media (max-width: 600px) {
+            .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+            .footer-bottom { flex-direction: column; text-align: center; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- HEADER -->
+        <header>
+            <a href="../index.html" class="logo-container">
+                <img src="../media/pictures/logo/kselis_logo_nobg_light.png" alt="Kselis Logo" onerror="this.style.display='none'">
+                <span class="logo-text">KSELIS</span>
+            </a>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="../index.html">
+                            <span class="material-symbols-outlined" style="font-size: 18px;">arrow_back</span> Home
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- MAIN CONTENT -->
+        <main>
+            <div class="content-wrapper">
+                <div class="page-header">
+                    <h1>Privacy Policy</h1>
+                    <p>Last Updated: July 29, 2026</p>
+                </div>
+
+                <div class="policy-section">
+                    <h2 class="section-title">1. Introduction</h2>
+                    <p>Welcome to KSELIS. We respect your privacy and are committed to protecting your personal data. This Privacy Policy will inform you as to how we look after your personal data when you visit our website (regardless of where you visit it from) and tell you about your privacy rights and how the law protects you.</p>
+                    <p>By accessing or using the KSELIS platform, you agree to the collection and use of information in accordance with this Privacy Policy.</p>
+                </div>
+
+                <div class="policy-section">
+                    <h2 class="section-title">2. Information We Collect</h2>
+                    <p>We may collect, use, store, and transfer different kinds of personal data about you, which we have grouped together as follows:</p>
+                    <ul>
+                        <li><strong>Identity Data:</strong> Includes first name, last name, username, and profile picture (especially if you authenticate via Google Sign-In).</li>
+                        <li><strong>Contact Data:</strong> Includes your email address.</li>
+                        <li><strong>Technical Data:</strong> Includes internet protocol (IP) address, your login data, browser type and version, time zone setting and location, and operating system.</li>
+                        <li><strong>Usage Data:</strong> Includes information about how you use our website, educational resources, and community forums.</li>
+                        <li><strong>Content Data:</strong> Any contributions, comments, or posts you make within the Campfire community or interactive boards.</li>
+                    </ul>
+                </div>
+
+                <div class="policy-section">
+                    <h2 class="section-title">3. How We Use Your Information</h2>
+                    <p>We will only use your personal data when the law allows us to. Most commonly, we will use your personal data in the following circumstances:</p>
+                    <ul>
+                        <li>To register you as a new community member and manage your account.</li>
+                        <li>To provide and maintain our Service, including allowing access to the E-Resource Library.</li>
+                        <li>To notify you about changes to our Service, policies, or technical updates.</li>
+                        <li>To monitor the usage of our Service and detect, prevent, and address technical issues.</li>
+                        <li>To foster community interaction while enforcing our POSH guidelines and Community Standards.</li>
+                    </ul>
+                </div>
+
+                <div class="policy-section">
+                    <h2 class="section-title">4. Third-Party Authentication & Services</h2>
+                    <p>To make logging in seamless, we use <strong>Firebase Authentication</strong> (a Google service). When you choose to log in using Google, we receive basic profile information (such as your name, email address, and profile picture) as permitted by your Google privacy settings.</p>
+                    <p>We do not have access to your Google password. Your authentication is handled entirely securely through Google's OAuth systems.</p>
+                </div>
+
+                <div class="policy-section">
+                    <h2 class="section-title">5. Data Security</h2>
+                    <p>We have put in place appropriate security measures to prevent your personal data from being accidentally lost, used, or accessed in an unauthorized way, altered, or disclosed. We use secure databases (like Firebase Firestore) with strict security rules to ensure that only authorized users can read or write data.</p>
+                    <p>However, please remember that no method of transmission over the Internet, or method of electronic storage, is 100% secure. While we strive to use commercially acceptable means to protect your personal data, we cannot guarantee its absolute security.</p>
+                </div>
+
+                <div class="policy-section">
+                    <h2 class="section-title">6. Cookies and Local Storage</h2>
+                    <p>We use Cookies and similar tracking technologies (like browser Local Storage) to track the activity on our Service and hold certain information. For example, we may use local storage to remember your UI preferences or keep you logged in between sessions.</p>
+                    <p>You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent. However, if you do not accept cookies, you may not be able to use some portions of our Service (such as staying logged into your dashboard).</p>
+                </div>
+
+                <div class="policy-section">
+                    <h2 class="section-title">7. Your Data Rights</h2>
+                    <p>Depending on your location, you may have the following rights regarding your personal data:</p>
+                    <ul>
+                        <li><strong>Request access</strong> to your personal data.</li>
+                        <li><strong>Request correction</strong> of the personal data that we hold about you.</li>
+                        <li><strong>Request erasure</strong> of your personal data (Account Deletion).</li>
+                        <li><strong>Withdraw consent</strong> at any time where we are relying on consent to process your personal data.</li>
+                    </ul>
+                    <p>If you wish to delete your KSELIS account and wipe your data from our database, please contact us at the email provided below, or use the "Delete Account" feature inside your profile dashboard (if available).</p>
+                </div>
+
+                <div class="policy-section">
+                    <h2 class="section-title">8. Changes to This Privacy Policy</h2>
+                    <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date at the top of this policy.</p>
+                    <p>You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.</p>
+                </div>
+
+                <div class="policy-section">
+                    <h2 class="section-title">9. Contact Us</h2>
+                    <p>If you have any questions about this Privacy Policy, your data rights, or how we handle your personal information, please contact us:</p>
+                    <ul>
+                        <li><strong>By email:</strong> <a href="mailto:kselis.institute@gmail.com">kselis.institute@gmail.com</a></li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="big-footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>KSELIS</h3>
+                <p>An open-source initiative democratizing quality education for everyone, regardless of region or background.</p>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Explore</h4>
+                <a href="about.html">About the Library</a>
+                <a href="contact.html">Contact Us</a>
+                <a href="careers.html">Career Opportunities</a>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+                <a href="posh.html">POSH Guidelines</a>
+            </div>
+            
+            <div class="footer-col">
+                <h4>Connect</h4>
+                <div class="social-links">
+                    <a href="https://x.com/KselisX" aria-label="Twitter" target="_blank"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://www.instagram.com/kselis.institute/" aria-label="Instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/company/kselisinstitute" aria-label="LinkedIn" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://github.com/Kselis" aria-label="GitHub" target="_blank"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <span>&copy; 2026 Kselis Institute. All rights reserved.</span>
+            <span>Built for the community.</span>
+        </div>
+    </footer>
+
+</body>
+</html>
